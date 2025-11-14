@@ -1,8 +1,0 @@
-B:/brokf/Documents/MobileGameDev/.utmp/Debug/336f3wr4/arm64-v8a/CMakeFiles/edit_cache.dir
-B:/brokf/Documents/MobileGameDev/.utmp/Debug/336f3wr4/arm64-v8a/CMakeFiles/rebuild_cache.dir
-B:/brokf/Documents/MobileGameDev/.utmp/Debug/336f3wr4/arm64-v8a/GameActivity/CMakeFiles/game.dir
-B:/brokf/Documents/MobileGameDev/.utmp/Debug/336f3wr4/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
-B:/brokf/Documents/MobileGameDev/.utmp/Debug/336f3wr4/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
-B:/brokf/Documents/MobileGameDev/.utmp/Debug/336f3wr4/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
-B:/brokf/Documents/MobileGameDev/.utmp/Debug/336f3wr4/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
-B:/brokf/Documents/MobileGameDev/.utmp/Debug/336f3wr4/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir

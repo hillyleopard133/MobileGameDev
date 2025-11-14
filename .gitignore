@@ -7,3 +7,25 @@ UnityProject/Build/
 UnityProject/Builds/
 UnityProject/UserSettings/
 
+
+# IDE stuff
+.idea/
+*.csproj
+*.sln
+*.userprefs
+
+# Rider/VSCode
+.vscode/
+*.unityproj
+*.iml
+*.ipr
+*.iws
+
+# Build artifacts
+*.apk
+*.aab
+
+# Keystore 
+*.keystore
+*.jks
+user.keystore
