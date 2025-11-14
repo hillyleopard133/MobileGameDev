@@ -1,0 +1,9 @@
+# Ignore Unity generated stuff inside UnityProject
+UnityProject/Library/
+UnityProject/Temp/
+UnityProject/Logs/
+UnityProject/Obj/
+UnityProject/Build/
+UnityProject/Builds/
+UnityProject/UserSettings/
+
