@@ -1,0 +1,4 @@
+Video: https://youtu.be/Ur_oHc5mRzE
+GitHub: https://github.com/hillyleopard133/MobileGameDev
+
+Release: CA2-0.2.0-release-arm64
