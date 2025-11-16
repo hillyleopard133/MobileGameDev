@@ -66,7 +66,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         switch (selectedFruit)
         {

@@ -10,12 +10,73 @@ public class RecipeManager : Singleton<RecipeManager>
     [SerializeField] private Transform recipeContainer;
 
     private Recipe currentRecipe;
+    private ResourceManager resourceManager;
     
-    private readonly string SELECTED_RECIPE = "SELECTED_RECIPE";  
+    private readonly string SELECTED_RECIPE = "SELECTED_RECIPE";
+
+    private float smoothieCounter = 0;
 
     private void Start()
     {
         LoadRecipes();
+        resourceManager = ResourceManager.Instance;
+    }
+
+    private void Update()
+    {
+        if(currentRecipe is null) return;
+        if(!CheckIngredients()) return;
+        
+        smoothieCounter -= Time.deltaTime;
+
+        if (smoothieCounter <= 0)
+        {
+            smoothieCounter = currentRecipe.craftingTime;
+            CraftSmoothie();
+        }
+    }
+
+    private bool CheckIngredients()
+    {
+        foreach (Ingredient ingredient in currentRecipe.ingredients)
+        {
+            switch (ingredient.fruitType)
+            {
+                case GameManager.FruitTypes.Apple:
+                    if (resourceManager.AppleAmount < ingredient.amount)
+                    {
+                        return false;
+                    }
+                    break;
+                
+                case GameManager.FruitTypes.Banana:
+                    if (resourceManager.BananaAmount < ingredient.amount)
+                    {
+                        return false;
+                    }
+                    break;
+            }
+        }
+        return true;
+    }
+
+    private void CraftSmoothie()
+    {
+        resourceManager.AddCoins(currentRecipe.productValue);
+
+        foreach (Ingredient ingredient in currentRecipe.ingredients)
+        {
+            switch (ingredient.fruitType)
+            {
+                case GameManager.FruitTypes.Apple:
+                    resourceManager.UseApple(ingredient.amount);
+                    break;
+                
+                case GameManager.FruitTypes.Banana:
+                    resourceManager.UseBanana(ingredient.amount);
+                    break;
+            }
+        }
     }
 
     public void LoadRecipes()
@@ -37,7 +98,6 @@ public class RecipeManager : Singleton<RecipeManager>
 
     private void UpdateRecipeToggles()
     {
-        Debug.Log("UpdateRecipeToggles");
         for (int i = 0; i < recipeContainer.childCount; i++)
         {
             RecipePrefab recipe = recipeContainer.GetChild(i).GetComponent<RecipePrefab>();
@@ -57,6 +117,7 @@ public class RecipeManager : Singleton<RecipeManager>
     {
         currentRecipe = recipe;
         UpdateRecipeToggles();
+        smoothieCounter = recipe.craftingTime;
     }
 
     public void SaveSelectedRecipe()
@@ -69,7 +130,10 @@ public class RecipeManager : Singleton<RecipeManager>
         if (SaveGame.Exists(SELECTED_RECIPE))
         {
             currentRecipe = SaveGame.Load<Recipe>(SELECTED_RECIPE);
-            Debug.Log("Loading recipe: " + currentRecipe.productName);
+        }
+        else
+        {
+            currentRecipe = recipes[0];
         }
         UpdateRecipeToggles();
     }

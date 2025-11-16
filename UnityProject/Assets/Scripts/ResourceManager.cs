@@ -1,15 +1,48 @@
 using System;
 using UnityEngine;
 using BayatGames.SaveGameFree;
+using TMPro;
 
 public class ResourceManager : Singleton<ResourceManager>
 {
-    public int AppleAmount = 0;
-    public int BananaAmount = 0;
+    [SerializeField] private TextMeshProUGUI coinAmountText;
+    
+    [HideInInspector] public int AppleAmount = 0;
+    [HideInInspector] public int BananaAmount = 0;
 
-    public int CoinAmount = 0;
+    [HideInInspector] public int CoinAmount = 0;
 
-    private readonly string RESOURCE_DATA = "RESOURCE_DATA";  
+    private readonly string RESOURCE_DATA = "RESOURCE_DATA";
+
+    public void AddCoins(int amount)
+    {
+        CoinAmount += amount;
+        UpdateUI();
+    }
+
+    public void UseCoins(int amount)
+    {
+        CoinAmount -= amount;
+        UpdateUI();
+    }
+
+    public void UseApple(int amount)
+    {
+        AppleAmount -= amount;
+        UpdateUI();
+    }
+
+    public void UseBanana(int amount)
+    {
+        BananaAmount -= amount;
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        coinAmountText.text = CoinAmount.ToString();
+        GameManager.Instance.UpdateUI();
+    }
 
     public void SaveResources()
     {
@@ -20,6 +53,7 @@ public class ResourceManager : Singleton<ResourceManager>
         resourceData.CoinAmount = CoinAmount;
         
         SaveGame.Save(RESOURCE_DATA, resourceData);
+        UpdateUI();
     }
 
     public void LoadResources()
@@ -32,6 +66,7 @@ public class ResourceManager : Singleton<ResourceManager>
             BananaAmount = resourceData.BananaAmount;
             CoinAmount = resourceData.CoinAmount;
         }
+        UpdateUI();
     }
 
     public void ResetResources()

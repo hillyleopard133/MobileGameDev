@@ -21,14 +21,18 @@ public class UIManager : Singleton<UIManager>
 
     private int treeNumber = 0;
 
+    
+    
     public void OpenBlenderPanel()
     {
         blenderPanel.SetActive(true);
+        DeactivateTrees();
     }
 
     public void CloseBlenderPanel()
     {
         blenderPanel.SetActive(false);
+        LoadTree();
     }
 
     public void NextTree()
@@ -75,6 +79,14 @@ public class UIManager : Singleton<UIManager>
         }
         
         treeTypeText.text = treeTypes[treeNumber];
+    }
+
+    public void DeactivateTrees()
+    {
+        foreach (GameObject tree in trees)
+        {
+            tree.SetActive(false);
+        }
     }
     
     public void StartNewGame()
