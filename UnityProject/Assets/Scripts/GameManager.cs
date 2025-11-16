@@ -1,0 +1,142 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.Serialization;
+
+public class GameManager : Singleton<GameManager>
+{
+    [SerializeField] private Upgrades[] fruitUpgrades;
+    [SerializeField] private TextMeshProUGUI[] fruitAmountTexts;
+    
+    [SerializeField] private TextMeshProUGUI[] upgradeCostTexts;
+    [SerializeField] private TextMeshProUGUI[] upgradeLevelTexts;
+
+    private const int treeQuantity = 0;
+    private const int fruitQuantity = 1;
+    private const int fruitQuality = 2;
+
+    private const int apple = 0;
+    private const int banana = 1;
+
+    private const float costMultiplier = 1.3f;
+
+    private ResourceManager resourceManager;
+    
+    public enum FruitTypes
+    {
+        Apple,
+        Banana
+    }
+
+    private FruitTypes selectedFruit;
+    
+    private void Start()
+    {
+        selectedFruit = FruitTypes.Apple;
+        resourceManager = ResourceManager.Instance;
+        UpdateUI();
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    private int GetUpgradeCost(int level, int baseCost)
+    {
+        return Mathf.RoundToInt(baseCost * Mathf.Pow(costMultiplier, level));
+    }
+
+    public void ClickTree()
+    {
+        switch (selectedFruit)
+        {
+            case FruitTypes.Apple:
+                Upgrades appleUpgrades = fruitUpgrades[apple];
+                resourceManager.AppleAmount += appleUpgrades.FruitQuantity * appleUpgrades.TreeQuantity;
+                fruitAmountTexts[apple].text = resourceManager.AppleAmount.ToString();
+                break;
+            case FruitTypes.Banana:
+                Upgrades bananaUpgrades = fruitUpgrades[banana];
+                resourceManager.BananaAmount += bananaUpgrades.FruitQuantity * bananaUpgrades.TreeQuantity;
+                fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
+                break;
+        }
+    }
+
+    private void UpdateUI()
+    {
+        switch (selectedFruit)
+        {
+            case FruitTypes.Apple:
+                UpdateUpgradeUI(apple);
+                break;
+            case FruitTypes.Banana:
+                UpdateUpgradeUI(banana);
+                break;
+        }
+    }
+
+    private void UpdateUpgradeUI(int fruitIndex)
+    {
+        Upgrades upgrade = fruitUpgrades[fruitIndex];
+        
+        upgradeLevelTexts[treeQuantity].text = upgrade.TreeQuantity.ToString();
+        upgradeLevelTexts[fruitQuantity].text = upgrade.FruitQuantity.ToString();
+        upgradeLevelTexts[fruitQuality].text = upgrade.FruitQuality.ToString();
+        
+        upgradeCostTexts[treeQuantity].text = GetUpgradeCost(upgrade.TreeQuantity, upgrade.BaseValue).ToString();
+        upgradeCostTexts[fruitQuantity].text = GetUpgradeCost(upgrade.FruitQuantity, upgrade.BaseValue).ToString();
+        upgradeCostTexts[fruitQuality].text = GetUpgradeCost(upgrade.FruitQuality, upgrade.BaseValue).ToString();
+    }
+
+    public void UpgradeTreeQuantity()
+    {
+        switch (selectedFruit)
+        {
+            case FruitTypes.Apple:
+                fruitUpgrades[apple].TreeQuantity++;
+                break;
+            case FruitTypes.Banana:
+                fruitUpgrades[banana].TreeQuantity++;
+                break;
+        }
+        
+        UpdateUI();
+    }
+    
+    public void UpgradeFruitQuantity()
+    {
+        switch (selectedFruit)
+        {
+            case FruitTypes.Apple:
+                fruitUpgrades[apple].FruitQuantity++;
+                break;
+            case FruitTypes.Banana:
+                fruitUpgrades[banana].FruitQuantity++;
+                break;
+        }
+        
+        UpdateUI();
+    }
+    
+    public void UpgradeFruitQuality()
+    {
+        switch (selectedFruit)
+        {
+            case FruitTypes.Apple:
+                fruitUpgrades[apple].FruitQuality++;
+                break;
+            case FruitTypes.Banana:
+                fruitUpgrades[banana].FruitQuality++;
+                break;
+        }
+        
+        UpdateUI();
+    }
+
+
+    public FruitTypes GetFruitType()
+    {
+        return selectedFruit;
+    }
+}
