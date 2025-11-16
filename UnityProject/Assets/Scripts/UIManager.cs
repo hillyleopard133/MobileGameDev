@@ -9,6 +9,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject mainGame;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject upgradeMenu;
+    [SerializeField] private GameObject blenderPanel;
     
     [SerializeField] private GameObject newGameWarning;
     [SerializeField] private Button continueButton;
@@ -19,6 +20,16 @@ public class UIManager : Singleton<UIManager>
     private readonly string[] treeTypes = {"Apples", "Bananas"};
 
     private int treeNumber = 0;
+
+    public void OpenBlenderPanel()
+    {
+        blenderPanel.SetActive(true);
+    }
+
+    public void CloseBlenderPanel()
+    {
+        blenderPanel.SetActive(false);
+    }
 
     public void NextTree()
     {
