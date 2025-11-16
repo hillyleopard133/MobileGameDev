@@ -39,12 +39,14 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         ResourceManager.Instance.SaveResources();
         GameManager.Instance.SaveUpgradeData();
         RecipeManager.Instance.SaveSelectedRecipe();
+        Debug.Log("Game Saved");
     }
     
     public void StartNewGame()
     {
         ResetGameData();
         SaveGame.Save(FIRST_START, false);
+        Debug.Log("New Game Started");
     }
 
     private void ResetGameData()
@@ -52,6 +54,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         ResourceManager.Instance.ResetResources();
         GameManager.Instance.ResetUpgradeData();
         RecipeManager.Instance.ResetSelectedRecipe();
+        Debug.Log("Game Reset");
     }
     
     public void LoadSaveGame()
@@ -59,6 +62,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         ResourceManager.Instance.LoadResources();
         GameManager.Instance.LoadUpgradeData();
         RecipeManager.Instance.LoadSelectedRecipe();
+        Debug.Log("Game Loaded");
     }
     
     private void OnApplicationQuit()

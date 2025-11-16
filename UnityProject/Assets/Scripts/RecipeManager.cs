@@ -77,6 +77,8 @@ public class RecipeManager : Singleton<RecipeManager>
                     break;
             }
         }
+        
+        Debug.Log("Smoothie Crafted");
     }
 
     public void LoadRecipes()

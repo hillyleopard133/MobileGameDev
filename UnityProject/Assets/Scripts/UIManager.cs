@@ -47,6 +47,7 @@ public class UIManager : Singleton<UIManager>
         }
         
         LoadTree();
+        Debug.Log("Switch tree");
     }
 
     public void PreviousTree()
@@ -61,6 +62,7 @@ public class UIManager : Singleton<UIManager>
         }
         
         LoadTree();
+        Debug.Log("Switch tree");
     }
 
     private void LoadTree()
@@ -101,6 +103,7 @@ public class UIManager : Singleton<UIManager>
     {
         SaveLoadManager.Instance.LoadSaveGame();
         LaunchGame();
+        Debug.Log("Continue Game");
     }
     
     public void LaunchGame()

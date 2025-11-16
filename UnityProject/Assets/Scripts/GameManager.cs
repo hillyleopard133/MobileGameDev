@@ -71,6 +71,7 @@ public class GameManager : Singleton<GameManager>
                 fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
                 break;
         }
+        Debug.Log("Earned Fruit");
     }
 
     public void UpdateUI()
@@ -129,6 +130,7 @@ public class GameManager : Singleton<GameManager>
                 {
                     fruitUpgrades[fruitIndex].TreeQuantity++;
                     resourceManager.UseCoins(upgradeCost);
+                    Debug.Log("Upgrade purchased");
                 }
                 break;
             
@@ -138,6 +140,7 @@ public class GameManager : Singleton<GameManager>
                 {
                     fruitUpgrades[fruitIndex].FruitQuantity++;
                     resourceManager.UseCoins(upgradeCost);
+                    Debug.Log("Upgrade purchased");
                 }
                 break;
             case UpgradeTypes.FruitQuality:
@@ -146,9 +149,11 @@ public class GameManager : Singleton<GameManager>
                 {
                     fruitUpgrades[fruitIndex].FruitQuality++;
                     resourceManager.UseCoins(upgradeCost);
+                    Debug.Log("Upgrade purchased");
                 }
                 break;
         }
+        
     }
     
     public void UpgradeFruitQuantity()
