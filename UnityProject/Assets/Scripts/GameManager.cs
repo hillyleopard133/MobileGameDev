@@ -1,3 +1,4 @@
+using BayatGames.SaveGameFree;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -17,9 +18,11 @@ public class GameManager : Singleton<GameManager>
     private const int apple = 0;
     private const int banana = 1;
 
-    private const float costMultiplier = 1.3f;
+    private const float costMultiplier = 1.5f;
 
     private ResourceManager resourceManager;
+    
+    private readonly string UPGRADES = "UPGRADES";
     
     public enum FruitTypes
     {
@@ -138,5 +141,54 @@ public class GameManager : Singleton<GameManager>
     public FruitTypes GetFruitType()
     {
         return selectedFruit;
+    }
+
+    
+    // Save and Load
+    
+    public void SaveUpgradeData()
+    {
+        UpgradeData upgradeData = new UpgradeData();
+        
+        int length = fruitUpgrades.Length;
+        upgradeData.TreeQuantityLevel = new int[length];
+        upgradeData.FruitQuantityLevel = new int[length];
+        upgradeData.FruitQualityLevel = new int[length];
+        
+        for (int i = 0; i < length; i++)
+        {
+            upgradeData.TreeQuantityLevel[i] = fruitUpgrades[i].TreeQuantity;
+            upgradeData.FruitQuantityLevel[i] = fruitUpgrades[i].FruitQuantity;
+            upgradeData.FruitQualityLevel[i] = fruitUpgrades[i].FruitQuality;
+        }
+        
+        SaveGame.Save(UPGRADES, upgradeData);
+    }
+
+    public void LoadUpgradeData()
+    {
+        if (SaveGame.Exists(UPGRADES))
+        {
+            UpgradeData upgradeData = SaveGame.Load<UpgradeData>(UPGRADES);
+            
+            for (int i = 0; i < fruitUpgrades.Length; i++)
+            {
+                fruitUpgrades[i].TreeQuantity = upgradeData.TreeQuantityLevel[i];
+                fruitUpgrades[i].FruitQuantity = upgradeData.FruitQuantityLevel[i];
+                fruitUpgrades[i].FruitQuality = upgradeData.FruitQualityLevel[i];
+            }
+        }
+    }
+
+    public void ResetUpgradeData()
+    {
+        for (int i = 0; i < fruitUpgrades.Length; i++)
+        {
+            fruitUpgrades[i].TreeQuantity = 1;
+            fruitUpgrades[i].FruitQuantity = 1;
+            fruitUpgrades[i].FruitQuality = 0;
+        }
+        
+        SaveUpgradeData();
     }
 }
