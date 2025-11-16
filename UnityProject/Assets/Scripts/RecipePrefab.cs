@@ -1,5 +1,7 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RecipePrefab : MonoBehaviour
 {
@@ -9,9 +11,14 @@ public class RecipePrefab : MonoBehaviour
     [SerializeField] private TextMeshProUGUI recipeNameText;
     [SerializeField] private TextMeshProUGUI recipeValueText;
     [SerializeField] private TextMeshProUGUI craftingTimeText;
+    
+    [SerializeField] private Toggle recipeSelectedToggle;
+    
+    [HideInInspector] public Recipe recipe;
 
     public void LoadRecipe(Recipe recipe)
     {
+        this.recipe = recipe;
         recipeNameText.text = recipe.productName;
         recipeValueText.text = recipe.productValue.ToString();
         craftingTimeText.text = recipe.craftingTime + "s";
@@ -30,4 +37,33 @@ public class RecipePrefab : MonoBehaviour
             ingredientObject.GetComponent<IngredientPrefab>().LoadIngredient(ingredient);
         }
     }
+
+    public void ToggleOff()
+    {
+        recipeSelectedToggle.isOn = false;
+    }
+
+    public void ToggleOn()
+    {
+        recipeSelectedToggle.isOn = true;
+    }
+    
+    private void Awake()
+    {
+        recipeSelectedToggle.onValueChanged.AddListener(OnToggleChanged);
+    }
+
+    private void OnDestroy()
+    {
+        recipeSelectedToggle.onValueChanged.RemoveListener(OnToggleChanged);
+    }
+
+    private void OnToggleChanged(bool isOn)
+    {
+        if (!isOn) return;
+
+        RecipeManager.Instance.SelectRecipe(recipe);
+    }
+    
+    
 }

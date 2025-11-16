@@ -580,6 +580,8 @@ MonoBehaviour:
   recipeNameText: {fileID: 8025769645776948766}
   recipeValueText: {fileID: 9063254535473579403}
   craftingTimeText: {fileID: 1499449578175188123}
+  recipeSelectedToggle: {fileID: 6220189991086788921}
+  recipe: {fileID: 0}
 --- !u!114 &781936729263840361
 MonoBehaviour:
   m_ObjectHideFlags: 0
