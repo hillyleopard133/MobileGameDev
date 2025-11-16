@@ -77,6 +77,9 @@ public class GameManager : Singleton<GameManager>
                 UpdateUpgradeUI(banana);
                 break;
         }
+        
+        fruitAmountTexts[apple].text = resourceManager.AppleAmount.ToString();
+        fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
     }
 
     private void UpdateUpgradeUI(int fruitIndex)
@@ -105,6 +108,7 @@ public class GameManager : Singleton<GameManager>
         }
         
         UpdateUI();
+        SaveLoadManager.Instance.SaveGameData();
     }
     
     public void UpgradeFruitQuantity()
@@ -120,6 +124,7 @@ public class GameManager : Singleton<GameManager>
         }
         
         UpdateUI();
+        SaveLoadManager.Instance.SaveGameData();
     }
     
     public void UpgradeFruitQuality()
@@ -135,8 +140,14 @@ public class GameManager : Singleton<GameManager>
         }
         
         UpdateUI();
+        SaveLoadManager.Instance.SaveGameData();
     }
 
+    public void SetFruit(int fruitIndex)
+    {
+        selectedFruit = (FruitTypes)fruitIndex;
+        UpdateUI();
+    }
 
     public FruitTypes GetFruitType()
     {
@@ -178,6 +189,8 @@ public class GameManager : Singleton<GameManager>
                 fruitUpgrades[i].FruitQuality = upgradeData.FruitQualityLevel[i];
             }
         }
+        
+        UpdateUI();
     }
 
     public void ResetUpgradeData()
@@ -190,5 +203,6 @@ public class GameManager : Singleton<GameManager>
         }
         
         SaveUpgradeData();
+        UpdateUI();
     }
 }

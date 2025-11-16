@@ -57,4 +57,9 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         ResourceManager.Instance.LoadResources();
         GameManager.Instance.LoadUpgradeData();
     }
+    
+    private void OnApplicationQuit()
+    {
+        SaveGameData();
+    }
 }
