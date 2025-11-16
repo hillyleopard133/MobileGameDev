@@ -20,4 +20,5 @@ I don't have access to an Android phone so I used an emulator in Android studio.
 Build the project APK and run it on the emulator.
 
 **Known Issues**
+
 None
