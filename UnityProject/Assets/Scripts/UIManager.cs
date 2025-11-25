@@ -42,6 +42,8 @@ public class UIManager : Singleton<UIManager>
     private const int treeQuantity = 0;
     private const int fruitQuantity = 1;
     private const int fruitQuality = 2;
+    private const int harvesterQuantity = 3;
+    private const int harvesterSpeed = 4;
     
     private void Start()
     {
@@ -91,10 +93,14 @@ public class UIManager : Singleton<UIManager>
         upgradeLevelTexts[treeQuantity].text = upgrade.TreeQuantity.ToString();
         upgradeLevelTexts[fruitQuantity].text = upgrade.FruitQuantity.ToString();
         upgradeLevelTexts[fruitQuality].text = upgrade.FruitQuality.ToString();
+        upgradeLevelTexts[harvesterQuantity].text = upgrade.HarvesterQuantity.ToString();
+        upgradeLevelTexts[harvesterSpeed].text = upgrade.HarvesterSpeed.ToString();
         
-        upgradeCostTexts[treeQuantity].text = GetUpgradeCost(upgrade.TreeQuantity, upgrade.BaseValue).ToString();
-        upgradeCostTexts[fruitQuantity].text = GetUpgradeCost(upgrade.FruitQuantity, upgrade.BaseValue).ToString();
-        upgradeCostTexts[fruitQuality].text = GetUpgradeCost(upgrade.FruitQuality, upgrade.BaseValue).ToString();
+        upgradeCostTexts[treeQuantity].text = GetUpgradeCost(upgrade.TreeQuantity, upgrade.BaseTreeQuantityCost).ToString();
+        upgradeCostTexts[fruitQuantity].text = GetUpgradeCost(upgrade.FruitQuantity, upgrade.BaseFruitQuantityCost).ToString();
+        upgradeCostTexts[fruitQuality].text = GetUpgradeCost(upgrade.FruitQuality, upgrade.BaseFruitQualityCost).ToString();
+        upgradeCostTexts[harvesterQuantity].text = GetUpgradeCost(upgrade.HarvesterQuantity, upgrade.BaseHarvesterQuantityCost).ToString();
+        upgradeCostTexts[harvesterSpeed].text = GetUpgradeCost(upgrade.HarvesterSpeed, upgrade.BaseHarvesterSpeedCost).ToString();
     }
     
     private int GetUpgradeCost(int level, int baseCost)

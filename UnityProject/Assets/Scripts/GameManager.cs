@@ -18,6 +18,9 @@ public class GameManager : Singleton<GameManager>
     private ResourceManager resourceManager;
     
     private readonly string UPGRADES = "UPGRADES";
+
+    private float[] harvestTimers;
+    private const float baseHarvesterTime = 3.5f;
     
     public enum FruitTypes
     {
@@ -33,6 +36,8 @@ public class GameManager : Singleton<GameManager>
         TreeQuantity,
         FruitQuantity,
         FruitQuality,
+        HarvesterQuantity,
+        HarvesterSpeed
     }
 
     public FruitTypes selectedFruit;
@@ -41,11 +46,58 @@ public class GameManager : Singleton<GameManager>
     {
         selectedFruit = FruitTypes.Apple;
         resourceManager = ResourceManager.Instance;
+        harvestTimers = new float[fruitUpgrades.Length];
     }
 
     private void Update()
     {
-        
+        HarvestFruit();
+    }
+
+    private void HarvestFruit()
+    {
+        for (int i = 0; i < fruitUpgrades.Length; i++)
+        {
+            if (fruitUpgrades[i].HarvesterQuantity == 0) continue;
+            
+            harvestTimers[i] -= Time.deltaTime;
+            if (harvestTimers[i] <= 0)
+            {
+                harvestTimers[i] = CalculateHarvestTimer(i);
+                
+                switch (i)
+                {
+                    case 0:
+                        resourceManager.AppleAmount += CalculateHarvestAmount(i);
+                        break;
+                    case 1:
+                        resourceManager.BananaAmount += CalculateHarvestAmount(i);
+                        break;
+                    case 2:
+                        resourceManager.OrangeAmount += CalculateHarvestAmount(i);
+                        break;
+                    case 3:
+                        resourceManager.PearAmount += CalculateHarvestAmount(i);
+                        break;
+                    case 4:
+                        resourceManager.LemonAmount += CalculateHarvestAmount(i);
+                        break;
+                }
+                
+                UIManager.Instance.UpdateFruitUI();
+            }
+            
+        }
+    }
+
+    private float CalculateHarvestTimer(int fruitIndex)
+    {
+        return baseHarvesterTime - (fruitUpgrades[fruitIndex].HarvesterSpeed * 0.1f);
+    }
+
+    private int CalculateHarvestAmount(int fruitIndex)
+    {
+        return fruitUpgrades[fruitIndex].HarvesterQuantity * fruitUpgrades[fruitIndex].TreeQuantity;
     }
 
     public Upgrades getFruitUpgrade(int fruitIndex)
@@ -86,7 +138,6 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.UpdateFruitUI();
         Debug.Log("Earned Fruit");
     }
-
     
 
     private void Upgrade(int fruitIndex, UpgradeTypes upgradeType)
@@ -95,35 +146,103 @@ public class GameManager : Singleton<GameManager>
         switch (upgradeType)
         {
             case UpgradeTypes.TreeQuantity:
-                upgradeCost = GetUpgradeCost(fruitUpgrades[fruitIndex].TreeQuantity, fruitUpgrades[fruitIndex].BaseValue);
+                upgradeCost = GetUpgradeCost(fruitUpgrades[fruitIndex].TreeQuantity, fruitUpgrades[fruitIndex].BaseTreeQuantityCost);
                 if (upgradeCost <= resourceManager.CoinAmount)
                 {
                     fruitUpgrades[fruitIndex].TreeQuantity++;
                     resourceManager.UseCoins(upgradeCost);
-                    Debug.Log("Upgrade purchased");
+                    Debug.Log("Upgrade purchased: Tree Quantity");
                 }
                 break;
             
             case UpgradeTypes.FruitQuantity:
-                upgradeCost = GetUpgradeCost(fruitUpgrades[fruitIndex].FruitQuantity, fruitUpgrades[fruitIndex].BaseValue);
+                upgradeCost = GetUpgradeCost(fruitUpgrades[fruitIndex].FruitQuantity, fruitUpgrades[fruitIndex].BaseFruitQuantityCost);
                 if (upgradeCost <= resourceManager.CoinAmount)
                 {
                     fruitUpgrades[fruitIndex].FruitQuantity++;
                     resourceManager.UseCoins(upgradeCost);
-                    Debug.Log("Upgrade purchased");
+                    Debug.Log("Upgrade purchased: Fruit Quantity");
                 }
                 break;
             case UpgradeTypes.FruitQuality:
-                upgradeCost = GetUpgradeCost(fruitUpgrades[fruitIndex].FruitQuality, fruitUpgrades[fruitIndex].BaseValue);
+                upgradeCost = GetUpgradeCost(fruitUpgrades[fruitIndex].FruitQuality, fruitUpgrades[fruitIndex].BaseFruitQualityCost);
                 if (upgradeCost <= resourceManager.CoinAmount)
                 {
                     fruitUpgrades[fruitIndex].FruitQuality++;
                     resourceManager.UseCoins(upgradeCost);
-                    Debug.Log("Upgrade purchased");
+                    Debug.Log("Upgrade purchased: Fruit Quality");
+                }
+                break;
+            case UpgradeTypes.HarvesterQuantity:
+                upgradeCost = GetUpgradeCost(fruitUpgrades[fruitIndex].HarvesterQuantity, fruitUpgrades[fruitIndex].BaseHarvesterQuantityCost);
+                if (upgradeCost <= resourceManager.CoinAmount)
+                {
+                    fruitUpgrades[fruitIndex].HarvesterQuantity++;
+                    resourceManager.UseCoins(upgradeCost);
+                    Debug.Log("Upgrade purchased: Harvester Quantity");
+                }
+                break;
+            case UpgradeTypes.HarvesterSpeed:
+                upgradeCost = GetUpgradeCost(fruitUpgrades[fruitIndex].HarvesterSpeed, fruitUpgrades[fruitIndex].BaseHarvesterSpeedCost);
+                if (upgradeCost <= resourceManager.CoinAmount)
+                {
+                    fruitUpgrades[fruitIndex].HarvesterSpeed++;
+                    resourceManager.UseCoins(upgradeCost);
+                    Debug.Log("Upgrade purchased: Harvester Speed");
                 }
                 break;
         }
         
+    }
+    
+    public void UpgradeHarvesterQuantity()
+    {
+        switch (selectedFruit)
+        {
+            case FruitTypes.Apple:
+                Upgrade(apple, UpgradeTypes.HarvesterQuantity);
+                break;
+            case FruitTypes.Banana:                
+                Upgrade(banana, UpgradeTypes.HarvesterQuantity);
+                break;
+            case FruitTypes.Orange:
+                Upgrade(orange, UpgradeTypes.HarvesterQuantity);
+                break;
+            case FruitTypes.Pear:
+                Upgrade(pear, UpgradeTypes.HarvesterQuantity);
+                break;
+            case FruitTypes.Lemon:
+                Upgrade(lemon, UpgradeTypes.HarvesterQuantity);
+                break;
+        }
+        
+        UIManager.Instance.UpdateFruitUI();
+        SaveLoadManager.Instance.SaveGameData();
+    }
+    
+    public void UpgradeHarvesterSpeed()
+    {
+        switch (selectedFruit)
+        {
+            case FruitTypes.Apple:
+                Upgrade(apple, UpgradeTypes.HarvesterSpeed);
+                break;
+            case FruitTypes.Banana:                
+                Upgrade(banana, UpgradeTypes.HarvesterSpeed);
+                break;
+            case FruitTypes.Orange:
+                Upgrade(orange, UpgradeTypes.HarvesterSpeed);
+                break;
+            case FruitTypes.Pear:
+                Upgrade(pear, UpgradeTypes.HarvesterSpeed);
+                break;
+            case FruitTypes.Lemon:
+                Upgrade(lemon, UpgradeTypes.HarvesterSpeed);
+                break;
+        }
+        
+        UIManager.Instance.UpdateFruitUI();
+        SaveLoadManager.Instance.SaveGameData();
     }
     
     public void UpgradeTreeQuantity()
@@ -223,12 +342,16 @@ public class GameManager : Singleton<GameManager>
         upgradeData.TreeQuantityLevel = new int[length];
         upgradeData.FruitQuantityLevel = new int[length];
         upgradeData.FruitQualityLevel = new int[length];
+        upgradeData.HarvestQuantityLevel = new int[length];
+        upgradeData.HarvestSpeedLevel = new int[length];
         
         for (int i = 0; i < length; i++)
         {
             upgradeData.TreeQuantityLevel[i] = fruitUpgrades[i].TreeQuantity;
             upgradeData.FruitQuantityLevel[i] = fruitUpgrades[i].FruitQuantity;
             upgradeData.FruitQualityLevel[i] = fruitUpgrades[i].FruitQuality;
+            upgradeData.HarvestQuantityLevel[i] = fruitUpgrades[i].HarvesterQuantity;
+            upgradeData.HarvestSpeedLevel[i] = fruitUpgrades[i].HarvesterSpeed;
         }
         
         SaveGame.Save(UPGRADES, upgradeData);
@@ -245,6 +368,8 @@ public class GameManager : Singleton<GameManager>
                 fruitUpgrades[i].TreeQuantity = upgradeData.TreeQuantityLevel[i];
                 fruitUpgrades[i].FruitQuantity = upgradeData.FruitQuantityLevel[i];
                 fruitUpgrades[i].FruitQuality = upgradeData.FruitQualityLevel[i];
+                fruitUpgrades[i].HarvesterQuantity = upgradeData.HarvestQuantityLevel[i];
+                fruitUpgrades[i].HarvesterSpeed = upgradeData.HarvestSpeedLevel[i];
             }
         }
         
@@ -258,6 +383,8 @@ public class GameManager : Singleton<GameManager>
             fruitUpgrades[i].TreeQuantity = 1;
             fruitUpgrades[i].FruitQuantity = 1;
             fruitUpgrades[i].FruitQuality = 0;
+            fruitUpgrades[i].HarvesterQuantity = 0;
+            fruitUpgrades[i].HarvesterSpeed = 0;
         }
         
         SaveUpgradeData();

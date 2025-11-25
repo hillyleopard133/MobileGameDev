@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Upgrades
   TreeQuantity: 1
   FruitQuantity: 1
-  FruitQuality: 1
+  FruitQuality: 0
   HarvesterQuantity: 0
   HarvesterSpeed: 0
-  BaseTreeQuantityCost: 0
-  BaseFruitQuantityCost: 0
-  BaseFruitQualityCost: 0
-  BaseHarvesterQuantityCost: 0
-  BaseHarvesterSpeedCost: 0
+  BaseTreeQuantityCost: 80
+  BaseFruitQuantityCost: 160
+  BaseFruitQualityCost: 320
+  BaseHarvesterQuantityCost: 800
+  BaseHarvesterSpeedCost: 560
+  MaxHarvesterSpeed: 30
   BaseValue: 40

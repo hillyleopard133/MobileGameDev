@@ -20,4 +20,6 @@ public class UpgradeData
     public int[] TreeQuantityLevel;
     public int[] FruitQuantityLevel;
     public int[] FruitQualityLevel;
+    public int[] HarvestQuantityLevel;
+    public int[] HarvestSpeedLevel;
 }
