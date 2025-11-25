@@ -6,14 +6,6 @@ using UnityEngine.Serialization;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private Upgrades[] fruitUpgrades;
-    [SerializeField] private TextMeshProUGUI[] fruitAmountTexts;
-    
-    [SerializeField] private TextMeshProUGUI[] upgradeCostTexts;
-    [SerializeField] private TextMeshProUGUI[] upgradeLevelTexts;
-
-    private const int treeQuantity = 0;
-    private const int fruitQuantity = 1;
-    private const int fruitQuality = 2;
 
     private const int apple = 0;
     private const int banana = 1;
@@ -43,18 +35,22 @@ public class GameManager : Singleton<GameManager>
         FruitQuality,
     }
 
-    private FruitTypes selectedFruit;
+    public FruitTypes selectedFruit;
     
     private void Start()
     {
         selectedFruit = FruitTypes.Apple;
         resourceManager = ResourceManager.Instance;
-        UpdateUI();
     }
 
     private void Update()
     {
         
+    }
+
+    public Upgrades getFruitUpgrade(int fruitIndex)
+    {
+        return fruitUpgrades[fruitIndex];
     }
 
     private int GetUpgradeCost(int level, int baseCost)
@@ -69,72 +65,29 @@ public class GameManager : Singleton<GameManager>
             case FruitTypes.Apple:
                 Upgrades appleUpgrades = fruitUpgrades[apple];
                 resourceManager.AppleAmount += appleUpgrades.FruitQuantity * appleUpgrades.TreeQuantity;
-                fruitAmountTexts[apple].text = resourceManager.AppleAmount.ToString();
                 break;
             case FruitTypes.Banana:
                 Upgrades bananaUpgrades = fruitUpgrades[banana];
                 resourceManager.BananaAmount += bananaUpgrades.FruitQuantity * bananaUpgrades.TreeQuantity;
-                fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
                 break;
             case FruitTypes.Orange:
                 Upgrades orangeUpgrades = fruitUpgrades[orange];
                 resourceManager.OrangeAmount += orangeUpgrades.FruitQuantity * orangeUpgrades.TreeQuantity;
-                fruitAmountTexts[orange].text = resourceManager.OrangeAmount.ToString();
                 break;
             case FruitTypes.Pear:
                 Upgrades pearUpgrades = fruitUpgrades[pear];
                 resourceManager.PearAmount += pearUpgrades.FruitQuantity * pearUpgrades.TreeQuantity;
-                fruitAmountTexts[pear].text = resourceManager.PearAmount.ToString();
                 break;
             case FruitTypes.Lemon:
                 Upgrades lemonUpgrades = fruitUpgrades[lemon];
                 resourceManager.LemonAmount += lemonUpgrades.FruitQuantity * lemonUpgrades.TreeQuantity;
-                fruitAmountTexts[lemon].text = resourceManager.LemonAmount.ToString();
                 break;
         }
+        UIManager.Instance.UpdateFruitUI();
         Debug.Log("Earned Fruit");
     }
 
-    public void UpdateUI()
-    {
-        switch (selectedFruit)
-        {
-            case FruitTypes.Apple:
-                UpdateUpgradeUI(apple);
-                break;
-            case FruitTypes.Banana:
-                UpdateUpgradeUI(banana);
-                break;
-            case FruitTypes.Orange:
-                UpdateUpgradeUI(orange);
-                break;
-            case FruitTypes.Pear:
-                UpdateUpgradeUI(pear);
-                break;
-            case FruitTypes.Lemon:
-                UpdateUpgradeUI(lemon);
-                break;
-        }
-
-        fruitAmountTexts[apple].text = resourceManager.AppleAmount.ToString();
-        fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
-        fruitAmountTexts[orange].text = resourceManager.OrangeAmount.ToString();
-        fruitAmountTexts[pear].text = resourceManager.PearAmount.ToString();
-        fruitAmountTexts[lemon].text = resourceManager.LemonAmount.ToString();
-    }
-
-    private void UpdateUpgradeUI(int fruitIndex)
-    {
-        Upgrades upgrade = fruitUpgrades[fruitIndex];
-        
-        upgradeLevelTexts[treeQuantity].text = upgrade.TreeQuantity.ToString();
-        upgradeLevelTexts[fruitQuantity].text = upgrade.FruitQuantity.ToString();
-        upgradeLevelTexts[fruitQuality].text = upgrade.FruitQuality.ToString();
-        
-        upgradeCostTexts[treeQuantity].text = GetUpgradeCost(upgrade.TreeQuantity, upgrade.BaseValue).ToString();
-        upgradeCostTexts[fruitQuantity].text = GetUpgradeCost(upgrade.FruitQuantity, upgrade.BaseValue).ToString();
-        upgradeCostTexts[fruitQuality].text = GetUpgradeCost(upgrade.FruitQuality, upgrade.BaseValue).ToString();
-    }
+    
 
     private void Upgrade(int fruitIndex, UpgradeTypes upgradeType)
     {
@@ -194,7 +147,7 @@ public class GameManager : Singleton<GameManager>
                 break;
         }
         
-        UpdateUI();
+        UIManager.Instance.UpdateFruitUI();
         SaveLoadManager.Instance.SaveGameData();
     }
     
@@ -219,7 +172,7 @@ public class GameManager : Singleton<GameManager>
                 break;
         }
         
-        UpdateUI();
+        UIManager.Instance.UpdateFruitUI();
         SaveLoadManager.Instance.SaveGameData();
     }
     
@@ -244,14 +197,14 @@ public class GameManager : Singleton<GameManager>
                 break;
         }
         
-        UpdateUI();
+        UIManager.Instance.UpdateFruitUI();
         SaveLoadManager.Instance.SaveGameData();
     }
 
     public void SetFruit(int fruitIndex)
     {
         selectedFruit = (FruitTypes)fruitIndex;
-        UpdateUI();
+        UIManager.Instance.UpdateFruitUI();
     }
 
     public FruitTypes GetFruitType()
@@ -295,7 +248,7 @@ public class GameManager : Singleton<GameManager>
             }
         }
         
-        UpdateUI();
+        UIManager.Instance.UpdateFruitUI();
     }
 
     public void ResetUpgradeData()
@@ -308,6 +261,6 @@ public class GameManager : Singleton<GameManager>
         }
         
         SaveUpgradeData();
-        UpdateUI();
+        UIManager.Instance.UpdateFruitUI();
     }
 }

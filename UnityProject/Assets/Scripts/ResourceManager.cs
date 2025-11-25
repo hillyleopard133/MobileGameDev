@@ -5,8 +5,6 @@ using TMPro;
 
 public class ResourceManager : Singleton<ResourceManager>
 {
-    [SerializeField] private TextMeshProUGUI coinAmountText;
-    
     [HideInInspector] public int AppleAmount = 0;
     [HideInInspector] public int BananaAmount = 0;
     [HideInInspector] public int OrangeAmount = 0;
@@ -65,10 +63,10 @@ public class ResourceManager : Singleton<ResourceManager>
         UpdateUI();
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
-        coinAmountText.text = CoinAmount.ToString();
-        GameManager.Instance.UpdateUI();
+        UIManager.Instance.UpdateFruitUI();
+        UIManager.Instance.UpdateCoinAmountUI();
     }
 
     public void SaveResources()

@@ -889,9 +889,9 @@ RectTransform:
   - {fileID: 1809318711}
   m_Father: {fileID: 1992929095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 116.666664, y: -50}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &99504772
@@ -966,9 +966,9 @@ RectTransform:
   - {fileID: 529647644}
   m_Father: {fileID: 1992929095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 350, y: -50}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111061330
@@ -2288,9 +2288,9 @@ RectTransform:
   - {fileID: 982802750}
   m_Father: {fileID: 1992929095}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 583.3333, y: -10}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &330585543
@@ -2539,9 +2539,9 @@ RectTransform:
   - {fileID: 1562624795}
   m_Father: {fileID: 771280880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 583.3333, y: -50}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &384889322
@@ -3024,9 +3024,9 @@ RectTransform:
   - {fileID: 1599382910}
   m_Father: {fileID: 414960495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 500, y: -100}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &417423547
@@ -4859,9 +4859,9 @@ RectTransform:
   - {fileID: 2114037689}
   m_Father: {fileID: 414960495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 700, y: -100}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &643385088
@@ -5954,9 +5954,9 @@ RectTransform:
   - {fileID: 384889321}
   m_Father: {fileID: 754995891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &771280881
@@ -6365,7 +6365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &818501128
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10844,6 +10844,21 @@ MonoBehaviour:
   - {fileID: 1108952043}
   - {fileID: 1734677915}
   treeTypeText: {fileID: 1910530571}
+  fruitAmountTexts:
+  - {fileID: 1924418285}
+  - {fileID: 1544760305}
+  - {fileID: 1562624796}
+  - {fileID: 1809318712}
+  - {fileID: 529647645}
+  upgradeCostTexts:
+  - {fileID: 693510801}
+  - {fileID: 2043410154}
+  - {fileID: 1878945882}
+  upgradeLevelTexts:
+  - {fileID: 1263410262}
+  - {fileID: 1551352242}
+  - {fileID: 1057951076}
+  coinAmountText: {fileID: 982802751}
 --- !u!4 &1598055799
 Transform:
   m_ObjectHideFlags: 0
@@ -11082,9 +11097,9 @@ RectTransform:
   - {fileID: 1924418284}
   m_Father: {fileID: 771280880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 116.666664, y: -50}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1634515326
@@ -13172,9 +13187,9 @@ RectTransform:
   - {fileID: 1544760304}
   m_Father: {fileID: 771280880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 350, y: -50}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1890711153
@@ -14074,9 +14089,9 @@ RectTransform:
   - {fileID: 1249861379}
   m_Father: {fileID: 414960495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100, y: -100}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1949896099
@@ -14422,9 +14437,9 @@ RectTransform:
   - {fileID: 1866489822}
   m_Father: {fileID: 414960495}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 300, y: -100}
   m_SizeDelta: {x: 160, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1983869009
@@ -14718,9 +14733,9 @@ RectTransform:
   - {fileID: 330467713}
   m_Father: {fileID: 754995891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 400, y: -100}
   m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1992929096
@@ -15495,20 +15510,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a195f9925556d894c901c61c4829245a, type: 2}
   - {fileID: 11400000, guid: c127464d1c04a204fada773549219736, type: 2}
   - {fileID: 11400000, guid: b1eae17da3a87bf4e867fd490a6bbb3e, type: 2}
-  fruitAmountTexts:
-  - {fileID: 1924418285}
-  - {fileID: 1544760305}
-  - {fileID: 1562624796}
-  - {fileID: 1809318712}
-  - {fileID: 529647645}
-  upgradeCostTexts:
-  - {fileID: 693510801}
-  - {fileID: 2043410154}
-  - {fileID: 1878945882}
-  upgradeLevelTexts:
-  - {fileID: 1263410262}
-  - {fileID: 1551352242}
-  - {fileID: 1057951076}
+  selectedFruit: 0
 --- !u!4 &2071570039
 Transform:
   m_ObjectHideFlags: 0
@@ -15536,7 +15538,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2cb4b2c0beb4442b75d6ff39bf33f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceManager
-  coinAmountText: {fileID: 982802751}
   AppleAmount: 0
   BananaAmount: 0
   OrangeAmount: 0

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    [Header("Panels")]
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject mainGame;
     [SerializeField] private GameObject pauseMenu;
@@ -13,15 +14,95 @@ public class UIManager : Singleton<UIManager>
     
     [SerializeField] private GameObject newGameWarning;
     [SerializeField] private Button continueButton;
-
+    
+    [Header("Trees")]
     [SerializeField] private GameObject[] trees;
     [SerializeField] private TextMeshProUGUI treeTypeText;
 
     private readonly string[] treeTypes = {"Apples", "Bananas", "Oranges", "Pears", "Lemons"};
 
     private int treeNumber = 0;
-
     
+    private ResourceManager resourceManager;
+    private GameManager.FruitTypes selectedFruit;
+    
+    [Header("Upgrades")]
+    [SerializeField] private TextMeshProUGUI[] fruitAmountTexts;
+    [SerializeField] private TextMeshProUGUI[] upgradeCostTexts;
+    [SerializeField] private TextMeshProUGUI[] upgradeLevelTexts;
+    
+    [SerializeField] private TextMeshProUGUI coinAmountText;
+    
+    private const int apple = 0;
+    private const int banana = 1;
+    private const int orange = 2;
+    private const int pear = 3;
+    private const int lemon = 4;
+    
+    private const int treeQuantity = 0;
+    private const int fruitQuantity = 1;
+    private const int fruitQuality = 2;
+    
+    private void Start()
+    {
+        selectedFruit = GameManager.Instance.selectedFruit;
+        resourceManager = ResourceManager.Instance;
+        UpdateFruitUI();
+    }
+
+    public void UpdateFruitUI()
+    {
+        selectedFruit = GameManager.Instance.selectedFruit;
+        switch (selectedFruit)
+        {
+            case GameManager.FruitTypes.Apple:
+                UpdateUpgradeUI(apple);
+                break;
+            case GameManager.FruitTypes.Banana:
+                UpdateUpgradeUI(banana);
+                break;
+            case GameManager.FruitTypes.Orange:
+                UpdateUpgradeUI(orange);
+                break;
+            case GameManager.FruitTypes.Pear:
+                UpdateUpgradeUI(pear);
+                break;
+            case GameManager.FruitTypes.Lemon:
+                UpdateUpgradeUI(lemon);
+                break;
+        }
+
+        fruitAmountTexts[apple].text = resourceManager.AppleAmount.ToString();
+        fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
+        fruitAmountTexts[orange].text = resourceManager.OrangeAmount.ToString();
+        fruitAmountTexts[pear].text = resourceManager.PearAmount.ToString();
+        fruitAmountTexts[lemon].text = resourceManager.LemonAmount.ToString();
+    }
+
+    public void UpdateCoinAmountUI()
+    {
+        coinAmountText.text = resourceManager.CoinAmount.ToString();
+    }
+
+    private void UpdateUpgradeUI(int fruitIndex)
+    {
+        Upgrades upgrade = GameManager.Instance.getFruitUpgrade(fruitIndex);
+        
+        upgradeLevelTexts[treeQuantity].text = upgrade.TreeQuantity.ToString();
+        upgradeLevelTexts[fruitQuantity].text = upgrade.FruitQuantity.ToString();
+        upgradeLevelTexts[fruitQuality].text = upgrade.FruitQuality.ToString();
+        
+        upgradeCostTexts[treeQuantity].text = GetUpgradeCost(upgrade.TreeQuantity, upgrade.BaseValue).ToString();
+        upgradeCostTexts[fruitQuantity].text = GetUpgradeCost(upgrade.FruitQuantity, upgrade.BaseValue).ToString();
+        upgradeCostTexts[fruitQuality].text = GetUpgradeCost(upgrade.FruitQuality, upgrade.BaseValue).ToString();
+    }
+    
+    private int GetUpgradeCost(int level, int baseCost)
+    {
+        return Mathf.RoundToInt(baseCost * Mathf.Pow(costMultiplier, level));
+    }
+    
+    private const float costMultiplier = 1.5f;
     
     public void OpenBlenderPanel()
     {
