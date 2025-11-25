@@ -16,10 +16,39 @@ public class ResourceManager : Singleton<ResourceManager>
     private readonly string RESOURCE_DATA = "RESOURCE_DATA";
     private readonly string OFFLINE_TIME = "OFFLINE_TIME";
 
-    private void OnApplicationQuit()
+    private long offlineTime;
+    private long timeAway;
+    
+    private void Start()
     {
-        //TODO offline rss gen
+        LoadOfflineTime();
+        AddOfflineResources();
     }
+    
+    public void AddOfflineResources()
+    {
+        timeAway = GetCurrentTimestamp() - offlineTime;
+
+        if (timeAway <= 0) return;
+        
+        Debug.Log(timeAway);
+        
+    }
+    
+
+    private void LoadOfflineTime()
+    {
+        if (SaveGame.Exists(OFFLINE_TIME))
+        {
+            offlineTime = SaveGame.Load(OFFLINE_TIME, GetCurrentTimestamp());
+        }
+    }
+    
+    private long GetCurrentTimestamp()
+    {
+        return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+    }
+
 
     public void AddCoins(int amount)
     {
@@ -111,4 +140,10 @@ public class ResourceManager : Singleton<ResourceManager>
         
         SaveResources();
     }
+    
+    private void OnApplicationQuit()
+    {
+        SaveGame.Save(OFFLINE_TIME, GetCurrentTimestamp());
+    }
+
 }

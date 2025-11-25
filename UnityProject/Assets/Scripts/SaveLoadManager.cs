@@ -37,6 +37,8 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         }
         
         hasStarted = true;
+        
+        //LoadSaveGame();
     }
 
     public void SaveGameData()

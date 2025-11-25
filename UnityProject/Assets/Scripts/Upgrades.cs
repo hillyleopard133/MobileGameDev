@@ -47,14 +47,3 @@ public class Upgrades : ScriptableObject
     }
     
 }
-
-
-/*
- *Upgrades
- *
- * quality - improve smoothie value
- * tree quantity - improve collection rates
- * fertiliser - improve apples per tree?
- * harvester - automate collecting
- *
- */
