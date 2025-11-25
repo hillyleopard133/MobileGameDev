@@ -7,6 +7,9 @@ public class ResourceData
 {
     public int AppleAmount;
     public int BananaAmount;
+    public int OrangeAmount;
+    public int PearAmount;
+    public int LemonAmount;
 
     public int CoinAmount;
 }

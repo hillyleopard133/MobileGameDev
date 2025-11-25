@@ -17,7 +17,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject[] trees;
     [SerializeField] private TextMeshProUGUI treeTypeText;
 
-    private readonly string[] treeTypes = {"Apples", "Bananas"};
+    private readonly string[] treeTypes = {"Apples", "Bananas", "Oranges", "Pears", "Lemons"};
 
     private int treeNumber = 0;
 

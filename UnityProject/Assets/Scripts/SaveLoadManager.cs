@@ -13,6 +13,8 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     
     private readonly string FIRST_START = "FIRST_START";
     
+    private bool hasStarted = false;
+    
     protected override void Awake()
     {
         base.Awake();
@@ -33,6 +35,8 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         {
             UIManager.Instance.DisableContinueButton();
         }
+        
+        hasStarted = true;
     }
 
     public void SaveGameData()
@@ -73,6 +77,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
 
     private void OnApplicationPause(bool pause)
     {
-        SaveGameData();
+        if (!hasStarted) return;
+        if (pause) SaveGameData();
     }
 }

@@ -9,6 +9,9 @@ public class ResourceManager : Singleton<ResourceManager>
     
     [HideInInspector] public int AppleAmount = 0;
     [HideInInspector] public int BananaAmount = 0;
+    [HideInInspector] public int OrangeAmount = 0;
+    [HideInInspector] public int PearAmount = 0;
+    [HideInInspector] public int LemonAmount = 0;
 
     [HideInInspector] public int CoinAmount = 0;
 
@@ -17,7 +20,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
     private void OnApplicationQuit()
     {
-        
+        //TODO offline rss gen
     }
 
     public void AddCoins(int amount)
@@ -44,6 +47,24 @@ public class ResourceManager : Singleton<ResourceManager>
         UpdateUI();
     }
 
+    public void UseOrange(int amount)
+    {
+        OrangeAmount -= amount;
+        UpdateUI();
+    }
+
+    public void UsePear(int amount)
+    {
+        PearAmount -= amount;
+        UpdateUI();
+    }
+
+    public void UseLemon(int amount)
+    {
+        LemonAmount -= amount;
+        UpdateUI();
+    }
+
     public void UpdateUI()
     {
         coinAmountText.text = CoinAmount.ToString();
@@ -56,6 +77,9 @@ public class ResourceManager : Singleton<ResourceManager>
         
         resourceData.AppleAmount = AppleAmount;
         resourceData.BananaAmount = BananaAmount;
+        resourceData.OrangeAmount = OrangeAmount;
+        resourceData.PearAmount = PearAmount;
+        resourceData.LemonAmount = LemonAmount;
         resourceData.CoinAmount = CoinAmount;
         
         SaveGame.Save(RESOURCE_DATA, resourceData);
@@ -70,6 +94,9 @@ public class ResourceManager : Singleton<ResourceManager>
             
             AppleAmount = resourceData.AppleAmount;
             BananaAmount = resourceData.BananaAmount;
+            OrangeAmount = resourceData.OrangeAmount;
+            PearAmount = resourceData.PearAmount;
+            LemonAmount = resourceData.LemonAmount;
             CoinAmount = resourceData.CoinAmount;
         }
         UpdateUI();
@@ -79,6 +106,9 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         AppleAmount = 0;
         BananaAmount = 0;
+        OrangeAmount = 0;
+        PearAmount = 0;
+        LemonAmount = 0;
         CoinAmount = 0;
         
         SaveResources();

@@ -17,6 +17,9 @@ public class GameManager : Singleton<GameManager>
 
     private const int apple = 0;
     private const int banana = 1;
+    private const int orange = 2;
+    private const int pear = 3;
+    private const int lemon = 4;
 
     private const float costMultiplier = 1.5f;
 
@@ -27,10 +30,13 @@ public class GameManager : Singleton<GameManager>
     public enum FruitTypes
     {
         Apple,
-        Banana
+        Banana,
+        Orange,
+        Pear,
+        Lemon
     }
 
-    private enum UpgradeTypes
+    public enum UpgradeTypes
     {
         TreeQuantity,
         FruitQuantity,
@@ -70,6 +76,21 @@ public class GameManager : Singleton<GameManager>
                 resourceManager.BananaAmount += bananaUpgrades.FruitQuantity * bananaUpgrades.TreeQuantity;
                 fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
                 break;
+            case FruitTypes.Orange:
+                Upgrades orangeUpgrades = fruitUpgrades[orange];
+                resourceManager.OrangeAmount += orangeUpgrades.FruitQuantity * orangeUpgrades.TreeQuantity;
+                fruitAmountTexts[orange].text = resourceManager.OrangeAmount.ToString();
+                break;
+            case FruitTypes.Pear:
+                Upgrades pearUpgrades = fruitUpgrades[pear];
+                resourceManager.PearAmount += pearUpgrades.FruitQuantity * pearUpgrades.TreeQuantity;
+                fruitAmountTexts[pear].text = resourceManager.PearAmount.ToString();
+                break;
+            case FruitTypes.Lemon:
+                Upgrades lemonUpgrades = fruitUpgrades[lemon];
+                resourceManager.LemonAmount += lemonUpgrades.FruitQuantity * lemonUpgrades.TreeQuantity;
+                fruitAmountTexts[lemon].text = resourceManager.LemonAmount.ToString();
+                break;
         }
         Debug.Log("Earned Fruit");
     }
@@ -84,10 +105,22 @@ public class GameManager : Singleton<GameManager>
             case FruitTypes.Banana:
                 UpdateUpgradeUI(banana);
                 break;
+            case FruitTypes.Orange:
+                UpdateUpgradeUI(orange);
+                break;
+            case FruitTypes.Pear:
+                UpdateUpgradeUI(pear);
+                break;
+            case FruitTypes.Lemon:
+                UpdateUpgradeUI(lemon);
+                break;
         }
-        
+
         fruitAmountTexts[apple].text = resourceManager.AppleAmount.ToString();
         fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
+        fruitAmountTexts[orange].text = resourceManager.OrangeAmount.ToString();
+        fruitAmountTexts[pear].text = resourceManager.PearAmount.ToString();
+        fruitAmountTexts[lemon].text = resourceManager.LemonAmount.ToString();
     }
 
     private void UpdateUpgradeUI(int fruitIndex)
@@ -101,22 +134,6 @@ public class GameManager : Singleton<GameManager>
         upgradeCostTexts[treeQuantity].text = GetUpgradeCost(upgrade.TreeQuantity, upgrade.BaseValue).ToString();
         upgradeCostTexts[fruitQuantity].text = GetUpgradeCost(upgrade.FruitQuantity, upgrade.BaseValue).ToString();
         upgradeCostTexts[fruitQuality].text = GetUpgradeCost(upgrade.FruitQuality, upgrade.BaseValue).ToString();
-    }
-
-    public void UpgradeTreeQuantity()
-    {
-        switch (selectedFruit)
-        {
-            case FruitTypes.Apple:
-                Upgrade(apple, UpgradeTypes.TreeQuantity);
-                break;
-            case FruitTypes.Banana:                
-                Upgrade(banana, UpgradeTypes.TreeQuantity);
-                break;
-        }
-        
-        UpdateUI();
-        SaveLoadManager.Instance.SaveGameData();
     }
 
     private void Upgrade(int fruitIndex, UpgradeTypes upgradeType)
@@ -156,6 +173,31 @@ public class GameManager : Singleton<GameManager>
         
     }
     
+    public void UpgradeTreeQuantity()
+    {
+        switch (selectedFruit)
+        {
+            case FruitTypes.Apple:
+                Upgrade(apple, UpgradeTypes.TreeQuantity);
+                break;
+            case FruitTypes.Banana:                
+                Upgrade(banana, UpgradeTypes.TreeQuantity);
+                break;
+            case FruitTypes.Orange:
+                Upgrade(orange, UpgradeTypes.TreeQuantity);
+                break;
+            case FruitTypes.Pear:
+                Upgrade(pear, UpgradeTypes.TreeQuantity);
+                break;
+            case FruitTypes.Lemon:
+                Upgrade(lemon, UpgradeTypes.TreeQuantity);
+                break;
+        }
+        
+        UpdateUI();
+        SaveLoadManager.Instance.SaveGameData();
+    }
+    
     public void UpgradeFruitQuantity()
     {
         switch (selectedFruit)
@@ -165,6 +207,15 @@ public class GameManager : Singleton<GameManager>
                 break;
             case FruitTypes.Banana:
                 Upgrade(banana, UpgradeTypes.FruitQuantity);
+                break;
+            case FruitTypes.Orange:
+                Upgrade(orange, UpgradeTypes.FruitQuantity);
+                break;
+            case FruitTypes.Pear:
+                Upgrade(pear, UpgradeTypes.FruitQuantity);
+                break;
+            case FruitTypes.Lemon:
+                Upgrade(lemon, UpgradeTypes.FruitQuantity);
                 break;
         }
         
@@ -181,6 +232,15 @@ public class GameManager : Singleton<GameManager>
                 break;
             case FruitTypes.Banana:
                 Upgrade(banana, UpgradeTypes.FruitQuality);
+                break;
+            case FruitTypes.Orange:
+                Upgrade(orange, UpgradeTypes.FruitQuality);
+                break;
+            case FruitTypes.Pear:
+                Upgrade(pear, UpgradeTypes.FruitQuality);
+                break;
+            case FruitTypes.Lemon:
+                Upgrade(lemon, UpgradeTypes.FruitQuality);
                 break;
         }
         

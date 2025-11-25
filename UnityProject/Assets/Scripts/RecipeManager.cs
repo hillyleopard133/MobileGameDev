@@ -10,6 +10,7 @@ public class RecipeManager : Singleton<RecipeManager>
     [SerializeField] private Transform recipeContainer;
 
     private Recipe currentRecipe;
+    private int currentRecipeIndex;
     private ResourceManager resourceManager;
     
     private readonly string SELECTED_RECIPE = "SELECTED_RECIPE";
@@ -118,20 +119,22 @@ public class RecipeManager : Singleton<RecipeManager>
     public void SelectRecipe(Recipe recipe)
     {
         currentRecipe = recipe;
+        currentRecipeIndex = Array.IndexOf(recipes, currentRecipe);
         UpdateRecipeToggles();
         smoothieCounter = recipe.craftingTime;
     }
 
     public void SaveSelectedRecipe()
     {
-        SaveGame.Save(SELECTED_RECIPE, currentRecipe);
+        SaveGame.Save(SELECTED_RECIPE, currentRecipeIndex);
     }
 
     public void LoadSelectedRecipe()
     {
         if (SaveGame.Exists(SELECTED_RECIPE))
         {
-            currentRecipe = SaveGame.Load<Recipe>(SELECTED_RECIPE);
+            currentRecipeIndex = SaveGame.Load<int>(SELECTED_RECIPE);
+            currentRecipe = recipes[currentRecipeIndex];
         }
         else
         {
