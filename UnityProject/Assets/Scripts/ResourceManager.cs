@@ -13,6 +13,12 @@ public class ResourceManager : Singleton<ResourceManager>
     [HideInInspector] public int CoinAmount = 0;
 
     private readonly string RESOURCE_DATA = "RESOURCE_DATA";
+    private readonly string OFFLINE_TIME = "OFFLINE_TIME";
+
+    private void OnApplicationQuit()
+    {
+        
+    }
 
     public void AddCoins(int amount)
     {

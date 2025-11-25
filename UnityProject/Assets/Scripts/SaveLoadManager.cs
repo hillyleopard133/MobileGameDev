@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using BayatGames.SaveGameFree;
 using UnityEngine;
@@ -66,6 +67,11 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     }
     
     private void OnApplicationQuit()
+    {
+        SaveGameData();
+    }
+
+    private void OnApplicationPause(bool pause)
     {
         SaveGameData();
     }
