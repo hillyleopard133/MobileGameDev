@@ -11,6 +11,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         if (Instance == null)
         {
             Instance = this as T;
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject); // Make it persist
         }
         else
