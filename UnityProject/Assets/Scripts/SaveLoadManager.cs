@@ -53,6 +53,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     {
         ResetGameData();
         SaveGame.Save(FIRST_START, false);
+        RecipeManager.Instance.LoadSelectedRecipe();
         Debug.Log("New Game Started");
     }
 

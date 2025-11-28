@@ -6,8 +6,19 @@ public class Recipe : ScriptableObject
 {
     public Ingredient[] ingredients;
     public string productName;
-    public int productValue;
     public float craftingTime;
+
+    public int GetProductValue()
+    {
+        int value = 0;
+
+        foreach (Ingredient ingredient in ingredients)
+        {
+            value += ingredient.amount * GameManager.Instance.GetFruitValue(ingredient.fruitType);
+        }
+        
+        return value;
+    }
 }
 
 [Serializable]

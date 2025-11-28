@@ -20,7 +20,7 @@ public class RecipePrefab : MonoBehaviour
     {
         this.recipe = recipe;
         recipeNameText.text = recipe.productName;
-        recipeValueText.text = recipe.productValue.ToString();
+        recipeValueText.text = recipe.GetProductValue().ToString();
         craftingTimeText.text = recipe.craftingTime + "s";
         
         if (ingredientContainer.childCount > 0)

@@ -54,6 +54,12 @@ public class GameManager : Singleton<GameManager>
         HarvestFruit();
     }
 
+    public int GetFruitValue(FruitTypes fruit)
+    {
+        int index = (int)fruit;
+        return fruitUpgrades[index].BaseValue * (fruitUpgrades[index].FruitQuality + 1);
+    }
+
     private void HarvestFruit()
     {
         for (int i = 0; i < fruitUpgrades.Length; i++)
@@ -116,23 +122,23 @@ public class GameManager : Singleton<GameManager>
         {
             case FruitTypes.Apple:
                 Upgrades appleUpgrades = fruitUpgrades[apple];
-                resourceManager.AppleAmount += appleUpgrades.FruitQuantity * appleUpgrades.TreeQuantity;
+                resourceManager.AppleAmount += (appleUpgrades.FruitQuantity + 1) * (appleUpgrades.TreeQuantity + 1);
                 break;
             case FruitTypes.Banana:
                 Upgrades bananaUpgrades = fruitUpgrades[banana];
-                resourceManager.BananaAmount += bananaUpgrades.FruitQuantity * bananaUpgrades.TreeQuantity;
+                resourceManager.BananaAmount += (bananaUpgrades.FruitQuantity + 1) * (bananaUpgrades.TreeQuantity + 1);
                 break;
             case FruitTypes.Orange:
                 Upgrades orangeUpgrades = fruitUpgrades[orange];
-                resourceManager.OrangeAmount += orangeUpgrades.FruitQuantity * orangeUpgrades.TreeQuantity;
+                resourceManager.OrangeAmount += (orangeUpgrades.FruitQuantity + 1) * (orangeUpgrades.TreeQuantity + 1);
                 break;
             case FruitTypes.Pear:
                 Upgrades pearUpgrades = fruitUpgrades[pear];
-                resourceManager.PearAmount += pearUpgrades.FruitQuantity * pearUpgrades.TreeQuantity;
+                resourceManager.PearAmount += (pearUpgrades.FruitQuantity + 1) * (pearUpgrades.TreeQuantity + 1);
                 break;
             case FruitTypes.Lemon:
                 Upgrades lemonUpgrades = fruitUpgrades[lemon];
-                resourceManager.LemonAmount += lemonUpgrades.FruitQuantity * lemonUpgrades.TreeQuantity;
+                resourceManager.LemonAmount += (lemonUpgrades.FruitQuantity + 1) * (lemonUpgrades.TreeQuantity + 1);
                 break;
         }
         UIManager.Instance.UpdateFruitUI();
@@ -316,6 +322,8 @@ public class GameManager : Singleton<GameManager>
                 break;
         }
         
+        RecipeManager.Instance.LoadRecipes();
+        RecipeManager.Instance.LoadSelectedRecipe();
         UIManager.Instance.UpdateFruitUI();
         SaveLoadManager.Instance.SaveGameData();
     }
@@ -380,8 +388,8 @@ public class GameManager : Singleton<GameManager>
     {
         for (int i = 0; i < fruitUpgrades.Length; i++)
         {
-            fruitUpgrades[i].TreeQuantity = 1;
-            fruitUpgrades[i].FruitQuantity = 1;
+            fruitUpgrades[i].TreeQuantity = 0;
+            fruitUpgrades[i].FruitQuantity = 0;
             fruitUpgrades[i].FruitQuality = 0;
             fruitUpgrades[i].HarvesterQuantity = 0;
             fruitUpgrades[i].HarvesterSpeed = 0;

@@ -3,8 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Upgrades", menuName = "Scriptable Objects/Upgrades")]
 public class Upgrades : ScriptableObject
 {
-    [HideInInspector] public int TreeQuantity = 1;    //Number of trees in orchard
-    [HideInInspector] public int FruitQuantity = 1;   //Number of fruits per tree per tap
+    [HideInInspector] public int TreeQuantity;    //Number of trees in orchard
+    [HideInInspector] public int FruitQuantity;   //Number of fruits per tree per tap
     [HideInInspector] public int FruitQuality;    //Increase value of fruit products
     [HideInInspector] public int HarvesterQuantity; //Number of automatic workers
     [HideInInspector] public int HarvesterSpeed;  //Automation speed

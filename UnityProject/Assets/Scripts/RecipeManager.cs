@@ -63,7 +63,7 @@ public class RecipeManager : Singleton<RecipeManager>
 
     private void CraftSmoothie()
     {
-        resourceManager.AddCoins(currentRecipe.productValue);
+        resourceManager.AddCoins(currentRecipe.GetProductValue());
 
         foreach (Ingredient ingredient in currentRecipe.ingredients)
         {
@@ -145,7 +145,7 @@ public class RecipeManager : Singleton<RecipeManager>
 
     public void ResetSelectedRecipe()
     {
-        currentRecipe = null;
+        currentRecipe = recipes[0];
     }
     
 }
