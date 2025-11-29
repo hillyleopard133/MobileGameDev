@@ -66,7 +66,7 @@ public class UIManager : Singleton<UIManager>
         resourceManager = ResourceManager.Instance;
         prestigeManager = Prestige.Instance;
         costMultiplier = GameManager.costMultiplier;
-        UpdateFruitUI();
+        UpdatePrestigeUI();
     }
 
     public void UpdatePrestigeUI()
@@ -81,6 +81,7 @@ public class UIManager : Singleton<UIManager>
         prestigeCostTexts[blenderSpeed].text = prestigeManager.GetUpgradeCost(prestigeManager.blenderSpeed, prestigeManager.blenderSpeedBaseCost).ToString();
         
         UpdateFruitUI();
+        RecipeManager.Instance.UpdateRecipeTimes();
     }
 
     public void UpdateFruitUI()
@@ -126,6 +127,8 @@ public class UIManager : Singleton<UIManager>
     public void OpenBlenderPanel()
     {
         blenderPanel.SetActive(true);
+        ClosePrestigePanel();
+        CloseUpgrades();
         DeactivateTrees();
     }
 
@@ -243,6 +246,7 @@ public class UIManager : Singleton<UIManager>
     {
         upgradeMenu.SetActive(true);
         ClosePrestigePanel();
+        CloseBlenderPanel();
     }
 
     public void CloseUpgrades()
@@ -255,6 +259,7 @@ public class UIManager : Singleton<UIManager>
         prestigePanel.SetActive(true);
         UpdatePrestigeUI();
         CloseUpgrades();
+        CloseBlenderPanel();
     }
 
     public void ClosePrestigePanel()

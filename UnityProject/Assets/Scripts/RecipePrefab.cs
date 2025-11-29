@@ -21,7 +21,7 @@ public class RecipePrefab : MonoBehaviour
         this.recipe = recipe;
         recipeNameText.text = recipe.productName;
         recipeValueText.text = recipe.GetProductValue().ToString();
-        craftingTimeText.text = recipe.baseCraftingTime + "s";
+        UpdateCraftingTimeText();
         
         if (ingredientContainer.childCount > 0)
         {
@@ -36,6 +36,11 @@ public class RecipePrefab : MonoBehaviour
             GameObject ingredientObject = Instantiate(ingredientPrefab, ingredientContainer);
             ingredientObject.GetComponent<IngredientPrefab>().LoadIngredient(ingredient);
         }
+    }
+
+    public void UpdateCraftingTimeText()
+    {
+        craftingTimeText.text = (recipe.baseCraftingTime * (1 - Prestige.Instance.blenderSpeed * 0.02f)).ToString("F1") + "s";
     }
 
     public void ToggleOff()

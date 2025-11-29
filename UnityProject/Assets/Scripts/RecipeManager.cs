@@ -12,6 +12,7 @@ public class RecipeManager : Singleton<RecipeManager>
     private Recipe currentRecipe;
     private int currentRecipeIndex;
     private ResourceManager resourceManager;
+    private Prestige prestigeManager;
     
     private const string SELECTED_RECIPE = "SELECTED_RECIPE";
 
@@ -20,6 +21,7 @@ public class RecipeManager : Singleton<RecipeManager>
     private void Start()
     {
         LoadRecipes();
+        prestigeManager = Prestige.Instance;
         resourceManager = ResourceManager.Instance;
     }
 
@@ -32,7 +34,7 @@ public class RecipeManager : Singleton<RecipeManager>
 
         if (smoothieCounter <= 0)
         {
-            smoothieCounter = currentRecipe.baseCraftingTime;
+            smoothieCounter = currentRecipe.baseCraftingTime * (1 - prestigeManager.blenderSpeed * 0.02f);
             CraftSmoothie();
         }
     }
@@ -99,6 +101,15 @@ public class RecipeManager : Singleton<RecipeManager>
         }
     }
 
+    public void UpdateRecipeTimes()
+    {
+        for (int i = 0; i < recipeContainer.childCount; i++)
+        {
+            RecipePrefab recipe = recipeContainer.GetChild(i).GetComponent<RecipePrefab>();
+            recipe.UpdateCraftingTimeText();
+        }
+    }
+
     private void UpdateRecipeToggles()
     {
         for (int i = 0; i < recipeContainer.childCount; i++)
@@ -106,7 +117,7 @@ public class RecipeManager : Singleton<RecipeManager>
             RecipePrefab recipe = recipeContainer.GetChild(i).GetComponent<RecipePrefab>();
             if (recipe.recipe.productName == currentRecipe.productName)
             {
-                Debug.Log(recipe.recipe.productName);
+                Debug.Log("Selected recipe: " + recipe.recipe.productName);
                 recipe.ToggleOn();
             }
             else
