@@ -14810,6 +14810,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 46525fda92edd4f4794a2baddad4e552, type: 2}
   - {fileID: 11400000, guid: ed50f85f4c9eec74a8c1a92276a8f567, type: 2}
   - {fileID: 11400000, guid: 92e39404e3dc68140aee311a98f42434, type: 2}
+  - {fileID: 11400000, guid: 1395764ffe444ef4e959dfa45faaae49, type: 2}
+  - {fileID: 11400000, guid: f343d28bf590d8249a9641e97984d225, type: 2}
+  - {fileID: 11400000, guid: cb08d9bebf94065479e86d09cf4abd1f, type: 2}
+  - {fileID: 11400000, guid: 0abffc598cc045d4d83446f04a6e8eeb, type: 2}
   recipePrefab: {fileID: 2094678083222125405, guid: 73206a9d7601d9e46afe81f07a3ce76a, type: 3}
   recipeContainer: {fileID: 2037043346}
 --- !u!4 &1896673968

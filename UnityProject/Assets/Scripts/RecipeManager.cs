@@ -13,7 +13,7 @@ public class RecipeManager : Singleton<RecipeManager>
     private int currentRecipeIndex;
     private ResourceManager resourceManager;
     
-    private readonly string SELECTED_RECIPE = "SELECTED_RECIPE";
+    private const string SELECTED_RECIPE = "SELECTED_RECIPE";
 
     private float smoothieCounter = 0;
 
@@ -32,7 +32,7 @@ public class RecipeManager : Singleton<RecipeManager>
 
         if (smoothieCounter <= 0)
         {
-            smoothieCounter = currentRecipe.craftingTime;
+            smoothieCounter = currentRecipe.baseCraftingTime;
             CraftSmoothie();
         }
     }
@@ -121,7 +121,7 @@ public class RecipeManager : Singleton<RecipeManager>
         currentRecipe = recipe;
         currentRecipeIndex = Array.IndexOf(recipes, currentRecipe);
         UpdateRecipeToggles();
-        smoothieCounter = recipe.craftingTime;
+        smoothieCounter = recipe.baseCraftingTime;
     }
 
     public void SaveSelectedRecipe()

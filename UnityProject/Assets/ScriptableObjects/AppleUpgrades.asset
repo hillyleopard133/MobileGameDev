@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fef1054c4f254eae772849a37ac20, type: 3}
   m_Name: AppleUpgrades
   m_EditorClassIdentifier: Assembly-CSharp::Upgrades
-  TreeQuantity: 3
-  FruitQuantity: 1
-  FruitQuality: 0
-  HarvesterQuantity: 1
-  HarvesterSpeed: 1
+  TreeQuantity: 7
+  FruitQuantity: 3
+  FruitQuality: 2
+  HarvesterQuantity: 3
+  HarvesterSpeed: 4
   BaseTreeQuantityCost: 10
   BaseFruitQuantityCost: 20
   BaseFruitQualityCost: 30
   BaseHarvesterQuantityCost: 100
   BaseHarvesterSpeedCost: 70
   MaxHarvesterSpeed: 30
-  BaseValue: 5
+  BaseValue: 1

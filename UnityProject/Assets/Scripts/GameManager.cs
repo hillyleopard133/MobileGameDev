@@ -13,11 +13,11 @@ public class GameManager : Singleton<GameManager>
     private const int pear = 3;
     private const int lemon = 4;
 
-    private const float costMultiplier = 1.5f;
+    public const float costMultiplier = 1.5f;
 
     private ResourceManager resourceManager;
     
-    private readonly string UPGRADES = "UPGRADES";
+    private const string UPGRADES = "UPGRADES";
 
     private float[] harvestTimers;
     private const float baseHarvesterTime = 3.5f;
@@ -113,7 +113,7 @@ public class GameManager : Singleton<GameManager>
 
     private int GetUpgradeCost(int level, int baseCost)
     {
-        return Mathf.RoundToInt(baseCost * Mathf.Pow(costMultiplier, level));
+        return Mathf.RoundToInt(baseCost * Mathf.Pow(costMultiplier, level)* (1 - Prestige.Instance.upgradeDiscount * 0.02f));
     }
 
     public void ClickTree()

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fef1054c4f254eae772849a37ac20, type: 3}
   m_Name: OrangeUpgrades
   m_EditorClassIdentifier: Assembly-CSharp::Upgrades
-  TreeQuantity: 1
-  FruitQuantity: 1
+  TreeQuantity: 0
+  FruitQuantity: 0
   FruitQuality: 0
   HarvesterQuantity: 0
   HarvesterSpeed: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   BaseHarvesterQuantityCost: 800
   BaseHarvesterSpeedCost: 560
   MaxHarvesterSpeed: 30
-  BaseValue: 40
+  BaseValue: 4

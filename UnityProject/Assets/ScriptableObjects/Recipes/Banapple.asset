@@ -20,5 +20,4 @@ MonoBehaviour:
     amount: 30
     fruitType: 1
   productName: Banapple
-  productValue: 35
-  craftingTime: 7
+  baseCraftingTime: 7

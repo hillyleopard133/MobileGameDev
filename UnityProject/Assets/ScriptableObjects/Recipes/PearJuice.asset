@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22f2146c0d4061a479942f2920f38b7f, type: 3}
-  m_Name: BananaSmoothie
+  m_Name: PearJuice
   m_EditorClassIdentifier: Assembly-CSharp::Recipe
   ingredients:
-  - sprite: {fileID: 21300000, guid: eb45178c6a59c8c40a223ed4ecf1dedf, type: 3}
+  - sprite: {fileID: 21300000, guid: f109adf94ed7d2342b48f89c39faea9b, type: 3}
     amount: 40
-    fruitType: 1
-  productName: Banana Smoothie
-  baseCraftingTime: 5
+    fruitType: 3
+  productName: PearJuice
+  baseCraftingTime: 6

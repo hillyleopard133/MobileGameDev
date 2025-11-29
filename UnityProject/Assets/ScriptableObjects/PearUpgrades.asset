@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fef1054c4f254eae772849a37ac20, type: 3}
   m_Name: PearUpgrades
   m_EditorClassIdentifier: Assembly-CSharp::Upgrades
-  TreeQuantity: 1
-  FruitQuantity: 1
+  TreeQuantity: 0
+  FruitQuantity: 0
   FruitQuality: 0
   HarvesterQuantity: 0
   HarvesterSpeed: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   BaseHarvesterQuantityCost: 1800
   BaseHarvesterSpeedCost: 1320
   MaxHarvesterSpeed: 30
-  BaseValue: 90
+  BaseValue: 8

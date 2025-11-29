@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject upgradeMenu;
     [SerializeField] private GameObject blenderPanel;
+    [SerializeField] private GameObject prestigePanel;
     
     [SerializeField] private GameObject newGameWarning;
     [SerializeField] private Button continueButton;
@@ -18,6 +19,12 @@ public class UIManager : Singleton<UIManager>
     [Header("Trees")]
     [SerializeField] private GameObject[] trees;
     [SerializeField] private TextMeshProUGUI treeTypeText;
+    
+    private const int apple = 0;
+    private const int banana = 1;
+    private const int orange = 2;
+    private const int pear = 3;
+    private const int lemon = 4;
 
     private readonly string[] treeTypes = {"Apples", "Bananas", "Oranges", "Pears", "Lemons"};
 
@@ -27,17 +34,8 @@ public class UIManager : Singleton<UIManager>
     private GameManager.FruitTypes selectedFruit;
     
     [Header("Upgrades")]
-    [SerializeField] private TextMeshProUGUI[] fruitAmountTexts;
     [SerializeField] private TextMeshProUGUI[] upgradeCostTexts;
     [SerializeField] private TextMeshProUGUI[] upgradeLevelTexts;
-    
-    [SerializeField] private TextMeshProUGUI coinAmountText;
-    
-    private const int apple = 0;
-    private const int banana = 1;
-    private const int orange = 2;
-    private const int pear = 3;
-    private const int lemon = 4;
     
     private const int treeQuantity = 0;
     private const int fruitQuantity = 1;
@@ -45,34 +43,51 @@ public class UIManager : Singleton<UIManager>
     private const int harvesterQuantity = 3;
     private const int harvesterSpeed = 4;
     
+    [Header("Resources")]
+    [SerializeField] private TextMeshProUGUI coinAmountText;
+    [SerializeField] private TextMeshProUGUI[] fruitAmountTexts;
+    
+    [Header("Prestige")]
+    [SerializeField] private TextMeshProUGUI[] prestigeCostTexts;
+    [SerializeField] private TextMeshProUGUI[] prestigeLevelTexts;
+    [SerializeField] private TextMeshProUGUI prestigePointsText;
+    [SerializeField] private TextMeshProUGUI prestigeButtonText;
+
+    private const int upgradeDiscount = 0;
+    private const int blenderSpeed = 1;
+
+    private Prestige prestigeManager;
+    
+    private float costMultiplier;
+    
     private void Start()
     {
         selectedFruit = GameManager.Instance.selectedFruit;
         resourceManager = ResourceManager.Instance;
+        prestigeManager = Prestige.Instance;
+        costMultiplier = GameManager.costMultiplier;
+        UpdateFruitUI();
+    }
+
+    public void UpdatePrestigeUI()
+    {
+        prestigePointsText.text = prestigeManager.prestigePoints.ToString();
+        prestigeButtonText.text = "+" + prestigeManager.CalculatePrestigePoints();
+        
+        prestigeLevelTexts[upgradeDiscount].text = prestigeManager.upgradeDiscount.ToString();
+        prestigeLevelTexts[blenderSpeed].text = prestigeManager.blenderSpeed.ToString();
+        
+        prestigeCostTexts[upgradeDiscount].text = prestigeManager.GetUpgradeCost(prestigeManager.upgradeDiscount, prestigeManager.upgradeDiscountBaseCost).ToString();
+        prestigeCostTexts[blenderSpeed].text = prestigeManager.GetUpgradeCost(prestigeManager.blenderSpeed, prestigeManager.blenderSpeedBaseCost).ToString();
+        
         UpdateFruitUI();
     }
 
     public void UpdateFruitUI()
     {
         selectedFruit = GameManager.Instance.selectedFruit;
-        switch (selectedFruit)
-        {
-            case GameManager.FruitTypes.Apple:
-                UpdateUpgradeUI(apple);
-                break;
-            case GameManager.FruitTypes.Banana:
-                UpdateUpgradeUI(banana);
-                break;
-            case GameManager.FruitTypes.Orange:
-                UpdateUpgradeUI(orange);
-                break;
-            case GameManager.FruitTypes.Pear:
-                UpdateUpgradeUI(pear);
-                break;
-            case GameManager.FruitTypes.Lemon:
-                UpdateUpgradeUI(lemon);
-                break;
-        }
+
+        UpdateUpgradeUI((int)selectedFruit);
 
         fruitAmountTexts[apple].text = resourceManager.AppleAmount.ToString();
         fruitAmountTexts[banana].text = resourceManager.BananaAmount.ToString();
@@ -105,10 +120,8 @@ public class UIManager : Singleton<UIManager>
     
     private int GetUpgradeCost(int level, int baseCost)
     {
-        return Mathf.RoundToInt(baseCost * Mathf.Pow(costMultiplier, level));
+        return Mathf.RoundToInt(baseCost * Mathf.Pow(costMultiplier, level) * (1 - prestigeManager.upgradeDiscount * 0.02f));
     }
-    
-    private const float costMultiplier = 1.5f;
     
     public void OpenBlenderPanel()
     {
@@ -229,11 +242,24 @@ public class UIManager : Singleton<UIManager>
     public void OpenUpgrades()
     {
         upgradeMenu.SetActive(true);
+        ClosePrestigePanel();
     }
 
     public void CloseUpgrades()
     {
         upgradeMenu.SetActive(false);
+    }
+    
+    public void OpenPrestigePanel()
+    {
+        prestigePanel.SetActive(true);
+        UpdatePrestigeUI();
+        CloseUpgrades();
+    }
+
+    public void ClosePrestigePanel()
+    {
+        prestigePanel.SetActive(false);
     }
 
     public void PauseGame()

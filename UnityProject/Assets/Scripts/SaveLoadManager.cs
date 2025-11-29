@@ -10,9 +10,9 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     private UIManager uIManager;
 
     [SerializeField] private bool isFirstTimeStartingGame;
-    
-    private readonly string FIRST_START = "FIRST_START";
-    
+
+    private const string FIRST_START = "FIRST_START";
+
     private bool hasStarted = false;
     
     protected override void Awake()
@@ -37,8 +37,6 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         }
         
         hasStarted = true;
-        
-        //LoadSaveGame();
     }
 
     public void SaveGameData()
@@ -46,6 +44,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         ResourceManager.Instance.SaveResources();
         GameManager.Instance.SaveUpgradeData();
         RecipeManager.Instance.SaveSelectedRecipe();
+        Prestige.Instance.SavePrestige();
         Debug.Log("Game Saved");
     }
     
@@ -59,10 +58,16 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
 
     private void ResetGameData()
     {
+        PrestigeSafeReset();
+        Prestige.Instance.ResetPrestige();
+        Debug.Log("Game Reset");
+    }
+
+    public void PrestigeSafeReset()
+    {
         ResourceManager.Instance.ResetResources();
         GameManager.Instance.ResetUpgradeData();
         RecipeManager.Instance.ResetSelectedRecipe();
-        Debug.Log("Game Reset");
     }
     
     public void LoadSaveGame()
@@ -70,6 +75,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         ResourceManager.Instance.LoadResources();
         GameManager.Instance.LoadUpgradeData();
         RecipeManager.Instance.LoadSelectedRecipe();
+        Prestige.Instance.LoadPrestige();
         Debug.Log("Game Loaded");
     }
     

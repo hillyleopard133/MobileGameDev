@@ -17,5 +17,4 @@ MonoBehaviour:
     amount: 20
     fruitType: 0
   productName: Apple Juice
-  productValue: 10
-  craftingTime: 3
+  baseCraftingTime: 3
