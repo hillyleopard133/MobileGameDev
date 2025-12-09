@@ -76,6 +76,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         GameManager.Instance.LoadUpgradeData();
         RecipeManager.Instance.LoadSelectedRecipe();
         Prestige.Instance.LoadPrestige();
+        ResourceManager.Instance.AddOfflineResources();
         Debug.Log("Game Loaded");
     }
     

@@ -12,6 +12,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject upgradeMenu;
     [SerializeField] private GameObject blenderPanel;
     [SerializeField] private GameObject prestigePanel;
+    [SerializeField] private GameObject offlineResourcesPanel;
     
     [SerializeField] private GameObject newGameWarning;
     [SerializeField] private Button continueButton;
@@ -52,7 +53,12 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI[] prestigeLevelTexts;
     [SerializeField] private TextMeshProUGUI prestigePointsText;
     [SerializeField] private TextMeshProUGUI prestigeButtonText;
+    
+    [Header("Offline Resources")]
+    [SerializeField] private TextMeshProUGUI[] offlineFruitAmountTexts;
 
+    [SerializeField] private TextMeshProUGUI offlineCoinAmountText;
+    
     private const int upgradeDiscount = 0;
     private const int blenderSpeed = 1;
 
@@ -68,6 +74,28 @@ public class UIManager : Singleton<UIManager>
         costMultiplier = GameManager.costMultiplier;
         UpdatePrestigeUI();
     }
+
+    public void OfflineGenUI(int coins, int[] fruits)
+    {
+        for (int i = 0; i < fruits.Length; i++)
+        {
+            offlineFruitAmountTexts[i].text = "+ " + fruits[i];
+        }
+        
+        offlineCoinAmountText.text = "+ " + coins;
+    }
+
+    public void ClaimResources()
+    {
+        offlineResourcesPanel.SetActive(false);
+        UpdateFruitUI();
+    }
+
+    public void ShowOfflineResources()
+    {
+        offlineResourcesPanel.SetActive(true);
+    }
+    
 
     public void UpdatePrestigeUI()
     {

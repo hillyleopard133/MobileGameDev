@@ -18,11 +18,11 @@ public class ResourceManager : Singleton<ResourceManager>
 
     private long offlineTime;
     private long timeAway;
+    [SerializeField] private float maxTimeAway;
     
     private void Start()
     {
         LoadOfflineTime();
-        AddOfflineResources();
     }
     
     public void AddOfflineResources()
@@ -30,12 +30,23 @@ public class ResourceManager : Singleton<ResourceManager>
         timeAway = GetCurrentTimestamp() - offlineTime;
 
         if (timeAway <= 0) return;
+
+        if (timeAway > GetMaxTimeInSeconds())
+        {
+            timeAway = GetMaxTimeInSeconds();
+        }
         
-        Debug.Log(timeAway);
+        UIManager.Instance.ShowOfflineResources();
+        GameManager.Instance.OfflineHarvesters(timeAway);
+        Debug.Log("Time away: " + timeAway);
         
     }
-    
 
+    private int GetMaxTimeInSeconds()
+    {
+        return (int)(maxTimeAway * 3600);
+    }
+    
     private void LoadOfflineTime()
     {
         if (SaveGame.Exists(OFFLINE_TIME))

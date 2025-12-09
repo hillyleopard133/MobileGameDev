@@ -54,6 +54,43 @@ public class GameManager : Singleton<GameManager>
         HarvestFruit();
     }
 
+    public void OfflineHarvesters(long seconds)
+    {
+        int[] fruitAmounts = new int[fruitUpgrades.Length];
+        int startingCoins = resourceManager.CoinAmount;
+        
+        for (int i = 0; i < fruitUpgrades.Length; i++)
+        {
+            if (fruitUpgrades[i].HarvesterQuantity == 0) continue;
+
+            int harvestAmount = (int)(seconds/fruitUpgrades[i].HarvesterSpeed);
+            fruitAmounts[i] = CalculateHarvestAmount(i) * (harvestAmount/2);
+            
+            switch (i)
+            {
+                case 0:
+                    resourceManager.AppleAmount += fruitAmounts[i];
+                    break;
+                case 1:
+                    resourceManager.BananaAmount += fruitAmounts[i];
+                    break;
+                case 2:
+                    resourceManager.OrangeAmount += fruitAmounts[i];
+                    break;
+                case 3:
+                    resourceManager.PearAmount += fruitAmounts[i];
+                    break;
+                case 4:
+                    resourceManager.LemonAmount += fruitAmounts[i];
+                    break;
+            }
+            
+            resourceManager.AddCoins((fruitUpgrades[i].BaseValue * (fruitUpgrades[i].FruitQuality + 1) * (harvestAmount/2))/2);
+
+            UIManager.Instance.OfflineGenUI(resourceManager.CoinAmount - startingCoins, fruitAmounts);
+        }
+    }
+
     public int GetFruitValue(FruitTypes fruit)
     {
         int index = (int)fruit;
@@ -103,7 +140,7 @@ public class GameManager : Singleton<GameManager>
 
     private int CalculateHarvestAmount(int fruitIndex)
     {
-        return fruitUpgrades[fruitIndex].HarvesterQuantity * fruitUpgrades[fruitIndex].TreeQuantity;
+        return fruitUpgrades[fruitIndex].HarvesterQuantity * (fruitUpgrades[fruitIndex].TreeQuantity + 1);
     }
 
     public Upgrades getFruitUpgrade(int fruitIndex)
