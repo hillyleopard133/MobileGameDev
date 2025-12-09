@@ -17,6 +17,8 @@ MonoBehaviour:
   FruitQuality: 0
   HarvesterQuantity: 0
   HarvesterSpeed: 0
+  isLocked: 1
+  unlockCost: 50000
   BaseTreeQuantityCost: 180
   BaseFruitQuantityCost: 360
   BaseFruitQualityCost: 720

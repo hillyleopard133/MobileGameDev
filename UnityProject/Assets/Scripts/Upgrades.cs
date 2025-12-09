@@ -9,6 +9,9 @@ public class Upgrades : ScriptableObject
     [HideInInspector] public int HarvesterQuantity; //Number of automatic workers
     [HideInInspector] public int HarvesterSpeed;  //Automation speed
 
+    public bool isLocked;
+    public int unlockCost;
+
     [Header("Base Costs")]
     public int BaseTreeQuantityCost;
     public int BaseFruitQuantityCost;

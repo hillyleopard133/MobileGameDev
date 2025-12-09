@@ -60,6 +60,10 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI timeAwayText;
     [SerializeField] private GameObject[] offlineResourcesObjects;
     
+    [Header("Lock screen")]
+    [SerializeField] private GameObject lockScreen;
+    [SerializeField] private TextMeshProUGUI unlockCostText;
+    
     private const int upgradeDiscount = 0;
     private const int blenderSpeed = 1;
     private const int maxTimeAway = 2;
@@ -75,6 +79,27 @@ public class UIManager : Singleton<UIManager>
         prestigeManager = Prestige.Instance;
         costMultiplier = GameManager.costMultiplier;
         UpdatePrestigeUI();
+    }
+    
+    public void ShowLock()
+    {
+        Upgrades upgrade = GameManager.Instance.GetCurrentUpgrade();
+
+        if (upgrade.isLocked)
+        {
+            lockScreen.SetActive(true);
+            unlockCostText.text = upgrade.unlockCost.ToString();
+        }
+        else
+        {
+            lockScreen.SetActive(false);
+        }
+    }
+
+    public void HideLockScreen()
+    {
+        lockScreen.SetActive(false);
+        UpdateCoinAmountUI();
     }
 
     public void TimeAwayText(long timeAway)
@@ -243,6 +268,8 @@ public class UIManager : Singleton<UIManager>
         }
         
         treeTypeText.text = treeTypes[treeNumber];
+        
+        ShowLock();
     }
 
     public void DeactivateTrees()

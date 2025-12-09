@@ -45,6 +45,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         GameManager.Instance.SaveUpgradeData();
         RecipeManager.Instance.SaveSelectedRecipe();
         Prestige.Instance.SavePrestige();
+        GameManager.Instance.SaveLocks();
         Debug.Log("Game Saved");
     }
     
@@ -69,6 +70,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         ResourceManager.Instance.ResetResources();
         GameManager.Instance.ResetUpgradeData();
         RecipeManager.Instance.ResetSelectedRecipe();
+        GameManager.Instance.ResetLocks();
     }
     
     public void LoadSaveGame()
@@ -79,6 +81,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         RecipeManager.Instance.LoadSelectedRecipe();
         Prestige.Instance.SetMaxTimeAway();
         ResourceManager.Instance.AddOfflineResources();
+        GameManager.Instance.LoadLocks();
         Debug.Log("Game Loaded");
     }
     

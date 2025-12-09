@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
     private ResourceManager resourceManager;
     
     private const string UPGRADES = "UPGRADES";
+    private const string LOCKS = "LOCKS";
 
     private float[] harvestTimers;
     private const float baseHarvesterTime = 3.5f;
@@ -153,6 +154,22 @@ public class GameManager : Singleton<GameManager>
             }
             
         }
+    }
+
+    public void UnlockCurrentFruit()
+    {
+        if (resourceManager.CoinAmount >= GetCurrentUpgrade().unlockCost)
+        {
+            resourceManager.UseCoins(GetCurrentUpgrade().unlockCost);
+            GetCurrentUpgrade().isLocked = false;
+            SaveLocks();
+            UIManager.Instance.HideLockScreen();
+        }
+    }
+
+    public Upgrades GetCurrentUpgrade()
+    {
+        return fruitUpgrades[(int)selectedFruit];
     }
 
     private float CalculateHarvestTimer(int fruitIndex)
@@ -400,6 +417,40 @@ public class GameManager : Singleton<GameManager>
 
     
     // Save and Load
+
+    public void SaveLocks()
+    {
+        bool[] locked = new bool[fruitUpgrades.Length];
+        for (int i = 0; i < fruitUpgrades.Length; i++)
+        {
+            locked[i] = fruitUpgrades[i].isLocked;
+        }
+        
+        SaveGame.Save(LOCKS, locked);
+    }
+
+    public void LoadLocks()
+    {
+        if (SaveGame.Exists(LOCKS))
+        {
+            bool[] locked = SaveGame.Load<bool[]>(LOCKS);
+
+            for (int i = 0; i < locked.Length; i++)
+            {
+                fruitUpgrades[i].isLocked = locked[i];
+            }
+        }
+    }
+
+    public void ResetLocks()
+    {
+        foreach (Upgrades upgrade in fruitUpgrades)
+        {
+            upgrade.isLocked = true;
+        }
+        
+        fruitUpgrades[0].isLocked = false;
+    }
     
     public void SaveUpgradeData()
     {
