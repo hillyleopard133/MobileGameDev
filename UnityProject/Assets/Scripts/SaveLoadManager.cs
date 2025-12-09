@@ -14,6 +14,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     private const string FIRST_START = "FIRST_START";
 
     private bool hasStarted = false;
+    private bool hasCollectedOfflineResources = false;
     
     protected override void Awake()
     {
@@ -80,7 +81,11 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         GameManager.Instance.LoadUpgradeData();
         RecipeManager.Instance.LoadSelectedRecipe();
         Prestige.Instance.SetMaxTimeAway();
-        ResourceManager.Instance.AddOfflineResources();
+        if (!hasCollectedOfflineResources)
+        {
+            hasCollectedOfflineResources = true;
+            ResourceManager.Instance.AddOfflineResources();
+        }
         GameManager.Instance.LoadLocks();
         Debug.Log("Game Loaded");
     }
