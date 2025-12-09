@@ -45,6 +45,7 @@ public class GameManager : Singleton<GameManager>
     
     private void Start()
     {
+        Application.targetFrameRate = 60;
         selectedFruit = FruitTypes.Apple;
         resourceManager = ResourceManager.Instance;
         harvestTimers = new float[fruitUpgrades.Length];

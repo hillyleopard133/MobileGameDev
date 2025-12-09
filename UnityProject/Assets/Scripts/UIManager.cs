@@ -1,10 +1,13 @@
 using TMPro;
+using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    //static readonly ProfilerMarker marker = new ProfilerMarker("UIManager");
+    
     [Header("Panels")]
     [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject mainGame;
@@ -13,6 +16,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject blenderPanel;
     [SerializeField] private GameObject prestigePanel;
     [SerializeField] private GameObject offlineResourcesPanel;
+    [SerializeField] private GameObject buildInfoPanel;
     
     [SerializeField] private GameObject newGameWarning;
     [SerializeField] private Button continueButton;
@@ -79,6 +83,16 @@ public class UIManager : Singleton<UIManager>
         prestigeManager = Prestige.Instance;
         costMultiplier = GameManager.costMultiplier;
         UpdatePrestigeUI();
+    }
+
+    public void OpenBuildInfoPanel()
+    {
+        buildInfoPanel.SetActive(true);
+    }
+
+    public void CloseBuildInfoPanel()
+    {
+        buildInfoPanel.SetActive(false);
     }
     
     public void ShowLock()
