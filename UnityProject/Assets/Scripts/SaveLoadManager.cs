@@ -53,6 +53,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         ResetGameData();
         SaveGame.Save(FIRST_START, false);
         RecipeManager.Instance.LoadSelectedRecipe();
+        Prestige.Instance.SetMaxTimeAway();
         Debug.Log("New Game Started");
     }
 
@@ -73,9 +74,10 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     public void LoadSaveGame()
     {
         ResourceManager.Instance.LoadResources();
+        Prestige.Instance.LoadPrestige();
         GameManager.Instance.LoadUpgradeData();
         RecipeManager.Instance.LoadSelectedRecipe();
-        Prestige.Instance.LoadPrestige();
+        Prestige.Instance.SetMaxTimeAway();
         ResourceManager.Instance.AddOfflineResources();
         Debug.Log("Game Loaded");
     }

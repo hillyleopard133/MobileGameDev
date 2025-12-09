@@ -21,6 +21,11 @@ public class Upgrades : ScriptableObject
 
     public int BaseValue;
 
+    public int NumberOfUpgrades()
+    {
+        return TreeQuantity + FruitQuantity + FruitQuality + HarvesterQuantity + HarvesterSpeed;
+    }
+
     public void IncreaseTreeQuantity()
     {
         TreeQuantity++;

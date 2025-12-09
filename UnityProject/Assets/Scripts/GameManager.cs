@@ -54,6 +54,28 @@ public class GameManager : Singleton<GameManager>
         HarvestFruit();
     }
 
+    public int NumberOfFruitUpgrades()
+    {
+        int numberOfUpgrades = 0;
+
+        foreach (Upgrades upgrade in fruitUpgrades)
+        {
+            numberOfUpgrades += upgrade.NumberOfUpgrades();
+        }
+        
+        return numberOfUpgrades;
+    }
+
+    public bool HasHarvester()
+    {
+        foreach (Upgrades upgrade in fruitUpgrades)
+        {
+            if(upgrade.HarvesterQuantity > 0) return true;
+        }
+        
+        return false;
+    }
+
     public void OfflineHarvesters(long seconds)
     {
         int[] fruitAmounts = new int[fruitUpgrades.Length];
@@ -63,7 +85,7 @@ public class GameManager : Singleton<GameManager>
         {
             if (fruitUpgrades[i].HarvesterQuantity == 0) continue;
 
-            int harvestAmount = (int)(seconds/fruitUpgrades[i].HarvesterSpeed);
+            int harvestAmount = (int)(seconds/baseHarvesterTime);
             fruitAmounts[i] = CalculateHarvestAmount(i) * (harvestAmount/2);
             
             switch (i)

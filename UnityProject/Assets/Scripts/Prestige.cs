@@ -8,16 +8,21 @@ public class Prestige : Singleton<Prestige>
     
     [HideInInspector] public int upgradeDiscount;
     [HideInInspector] public int blenderSpeed;
+    [HideInInspector] public int maxOfflineTime;
 
     [SerializeField] public int upgradeDiscountBaseCost;
     [SerializeField] public int blenderSpeedBaseCost;
+    [SerializeField] public int maxOfflineTimeBaseCost;
 
-    private const int upgradeAmount = 2;
+    private const int upgradeAmount = 3;
     
     private const string PRESTIGE_POINTS = "PRESTIGE_POINTS";
     private const string UPGRADE_LEVELS = "UPGRADE_LEVELS";
     
     private float costMultiplier;
+
+    private const float BASE_MAX_OFFLINE_TIME = 2f;
+    private const float OFFLINE_TIME_INCREASE_PER_LEVEL = 0.5f;
 
     private void Start()
     {
@@ -33,7 +38,7 @@ public class Prestige : Singleton<Prestige>
     
     public int CalculatePrestigePoints()
     {
-        return 100;
+        return GameManager.Instance.NumberOfFruitUpgrades();
     }
 
     public void UpgradeDiscount()
@@ -45,12 +50,26 @@ public class Prestige : Singleton<Prestige>
         }
     }
 
+    public void SetMaxTimeAway()
+    {
+        ResourceManager.Instance.SetMaxTimeAway(BASE_MAX_OFFLINE_TIME + (maxOfflineTime * OFFLINE_TIME_INCREASE_PER_LEVEL));
+    }
+
     public void UpgradeBlenderSpeeds()
     {
         if (UsePrestige(GetUpgradeCost(blenderSpeed, blenderSpeedBaseCost)))
         {
              blenderSpeed++;
              SavePrestige();
+        }
+    }
+
+    public void UpgradeMaxOfflineTime()
+    {
+        if (UsePrestige(GetUpgradeCost(maxOfflineTime, maxOfflineTimeBaseCost)))
+        {
+            maxOfflineTime++;
+            SavePrestige();
         }
     }
 
@@ -77,6 +96,7 @@ public class Prestige : Singleton<Prestige>
         int[] levels = new int[upgradeAmount];
         levels[0] = upgradeDiscount;
         levels[1] = blenderSpeed;
+        levels[2] = maxOfflineTime;
         SaveGame.Save(UPGRADE_LEVELS, levels);
         
         UIManager.Instance.UpdatePrestigeUI();
@@ -94,6 +114,7 @@ public class Prestige : Singleton<Prestige>
             int[] levels = SaveGame.Load<int[]>(UPGRADE_LEVELS);
             upgradeDiscount = levels[0];
             blenderSpeed = levels[1];
+            maxOfflineTime = levels[2];
         }
         
         UIManager.Instance.UpdatePrestigeUI();
@@ -104,6 +125,7 @@ public class Prestige : Singleton<Prestige>
         prestigePoints = 0;
         upgradeDiscount = 0;
         blenderSpeed = 0;
+        maxOfflineTime = 0;
         SavePrestige();
     }
 }

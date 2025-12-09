@@ -56,11 +56,13 @@ public class UIManager : Singleton<UIManager>
     
     [Header("Offline Resources")]
     [SerializeField] private TextMeshProUGUI[] offlineFruitAmountTexts;
-
     [SerializeField] private TextMeshProUGUI offlineCoinAmountText;
+    [SerializeField] private TextMeshProUGUI timeAwayText;
+    [SerializeField] private GameObject[] offlineResourcesObjects;
     
     private const int upgradeDiscount = 0;
     private const int blenderSpeed = 1;
+    private const int maxTimeAway = 2;
 
     private Prestige prestigeManager;
     
@@ -75,11 +77,38 @@ public class UIManager : Singleton<UIManager>
         UpdatePrestigeUI();
     }
 
+    public void TimeAwayText(long timeAway)
+    {
+        string timeAwayString = "Time Away: ";
+
+        if (timeAway < 60)
+        {
+            timeAwayString += timeAway + "secs";
+        }else if (timeAway < 3600)
+        {
+            timeAwayString += (timeAway/60).ToString("F1") + "mins";
+        }
+        else
+        {
+            timeAwayString += (timeAway/3600).ToString("F1") + "hrs";
+        }
+        
+        timeAwayText.text = timeAwayString;
+    }
+
     public void OfflineGenUI(int coins, int[] fruits)
     {
         for (int i = 0; i < fruits.Length; i++)
         {
-            offlineFruitAmountTexts[i].text = "+ " + fruits[i];
+            if (fruits[i] > 0)
+            {
+                offlineResourcesObjects[i].SetActive(true);
+                offlineFruitAmountTexts[i].text = "+ " + fruits[i];
+            }
+            else
+            {
+                offlineResourcesObjects[i].SetActive(false);
+            }
         }
         
         offlineCoinAmountText.text = "+ " + coins;
@@ -104,9 +133,11 @@ public class UIManager : Singleton<UIManager>
         
         prestigeLevelTexts[upgradeDiscount].text = prestigeManager.upgradeDiscount.ToString();
         prestigeLevelTexts[blenderSpeed].text = prestigeManager.blenderSpeed.ToString();
+        prestigeLevelTexts[maxTimeAway].text = prestigeManager.maxOfflineTime.ToString();
         
         prestigeCostTexts[upgradeDiscount].text = prestigeManager.GetUpgradeCost(prestigeManager.upgradeDiscount, prestigeManager.upgradeDiscountBaseCost).ToString();
         prestigeCostTexts[blenderSpeed].text = prestigeManager.GetUpgradeCost(prestigeManager.blenderSpeed, prestigeManager.blenderSpeedBaseCost).ToString();
+        prestigeCostTexts[maxTimeAway].text = prestigeManager.GetUpgradeCost(prestigeManager.maxOfflineTime, prestigeManager.maxOfflineTimeBaseCost).ToString();
         
         UpdateFruitUI();
         RecipeManager.Instance.UpdateRecipeTimes();
