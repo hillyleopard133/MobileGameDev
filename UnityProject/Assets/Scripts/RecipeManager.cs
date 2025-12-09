@@ -133,6 +133,7 @@ public class RecipeManager : Singleton<RecipeManager>
         currentRecipeIndex = Array.IndexOf(recipes, currentRecipe);
         UpdateRecipeToggles();
         smoothieCounter = recipe.baseCraftingTime;
+        SaveSelectedRecipe();
     }
 
     public void SaveSelectedRecipe()
