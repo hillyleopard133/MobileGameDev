@@ -1,0 +1,2 @@
+GitHub repo: https://github.com/hillyleopard133/MobileGameDev/tree/master
+Web build (only for mobile): https://hillyleopard133.itch.io/into-the-orchard
